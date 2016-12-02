@@ -14,11 +14,3 @@ CaseGeneric::CaseGeneric(int _i, int _j) :
 	std::cout << "appel constructeur CaseGeneric : "<<i<<" "<<j << std::endl;
 
 }
-
-
-int main() {
-
-	FramPlateauLand * fram;
-	fram= new FramPlateauLand(4,8);
-
-}
