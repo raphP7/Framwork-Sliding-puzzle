@@ -18,17 +18,14 @@ class Case2048 :public CaseGeneric{
 
 public:
 	int valeur;
+	 virtual void Print(std::ostream& O) const
+	    {
+	        O <<valeur<<" ";
+	    }
 	Case2048(int _i,int _j);
 
 };
 
-int main() {
 
-	cout<<"hello"<<endl;
-
-	FramPlateauLand<Case2048> * fram;
-	fram= new FramPlateauLand<Case2048>(4,8);
-
-}
 
 #endif /* CASE2048_HPP_ */

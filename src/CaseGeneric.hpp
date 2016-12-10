@@ -15,7 +15,13 @@ class CaseGeneric {
 public:
 	int i;
 	int j;
+	friend std::ostream& operator << (std::ostream& O, const CaseGeneric& B);
 	CaseGeneric(int _i, int _j);
+	  virtual void Print(std::ostream& O) const
+	    {
+	        O << "Base : "<<i<<"  "<<j;
+	    }
+	virtual ~CaseGeneric();
 };
 
 #endif /* CASEGENERIC_HPP_ */

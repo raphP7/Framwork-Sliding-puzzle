@@ -9,6 +9,6 @@
 
 Case2048::Case2048(int _i,int _j):CaseGeneric(_i,_j),valeur(0){
 
-	std::cout << "appel constructeur Case2048 : "<<i<<" "<<j << std::endl;
+	//std::cout << "appel constructeur Case2048 : "<<i<<" "<<j << std::endl;
 
 }
