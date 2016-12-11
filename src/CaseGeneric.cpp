@@ -15,13 +15,15 @@ CaseGeneric::CaseGeneric(int _i, int _j) :
 
 }
 
-CaseGeneric::~CaseGeneric(){
-
+CaseGeneric::~CaseGeneric() {
+	//std::cout<<"delete de "<<i<<" "<<j<<std::endl;
 }
 
+void CaseGeneric::Print(std::ostream& O) const {
+	O << "?";
+}
 
-std::ostream& operator << (std::ostream& O, const CaseGeneric& B)
-{
-    B.Print(O);
-    return O;
+std::ostream& operator <<(std::ostream& O, const CaseGeneric& B) {
+	B.Print(O);
+	return O;
 }

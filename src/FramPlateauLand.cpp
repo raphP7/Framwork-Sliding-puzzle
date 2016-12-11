@@ -7,48 +7,70 @@
 
 #include"FramPlateauLand.hpp"
 #include"2048/Case2048.hpp"
+#include"2048/Plateau2048.hpp"
+#include"Takin/PlateauTakin.hpp"
 
-template<typename T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ) {
 
-	for (int i = 0; i < sizeI; i++) {
-		std::vector<T> tab;
-		this->plateau.push_back(tab);
-
-		for (int j = 0; j < sizeJ; j++) {
-			this->plateau[i].push_back(T(i, j));
-		}
-	}
-}
 
 template<typename T> FramPlateauLand<T>::FramPlateauLand(
 		vector<vector<T> > _pla) :
-		plateau(_pla) {
+		plateau(_pla) {}
 
-}
-
-template<typename T> void FramPlateauLand<T>::affiche() {
-
-	typename vector< vector<T> >::iterator row;
-	typename vector<T>::iterator col;
-	for (row = this->plateau.begin(); row != this->plateau.end(); row++) {
-
-	    for (col = row->begin(); col != row->end(); col++) {
-	    	cout<<*col;
-	    }
-	    cout<<endl;
-	}
-	cout<<endl;
-
-}
 int main() {
+    std::cout<<"bonjour"<<std::endl;
 
-	cout << "hello" << endl;
+    class mama:public CaseGeneric{
+    public:
+    mama(int t,int v):CaseGeneric(t,v){
+
+        }
+    };
+
+
+    FramPlateauLand<mama>* fr;
+    fr = new FramPlateauLand<mama>(8, 8);
 
 	FramPlateauLand<Case2048>* fram;
 	fram = new FramPlateauLand<Case2048>(8, 8);
-
 	fram->affiche();
-
-	fram->plateau[0][0].valeur=2;
+	fram->plateau[0][0]->valeur=2;
 	fram->affiche();
+	delete fram;
+
+	Plateau2048 pl2048(3,3);
+	pl2048.affiche();
+	pl2048.plateau[0][1]->valeur=8;
+	pl2048.affiche();
+
+
+	class test{
+        public:
+            string txt;
+            test(string _txt):txt(_txt){
+
+            }
+	};
+
+	PlateauTakin<char> pTakin(3,3);
+	pTakin.plateau[0][0]->valeur='a';
+	pTakin.plateau[0][1]->valeur='b';
+	pTakin.plateau[0][2]->valeur='c';
+	pTakin.plateau[1][0]->valeur='d';
+	pTakin.plateau[1][1]->valeur='e';
+	pTakin.plateau[1][2]->valeur='f';
+	pTakin.plateau[2][0]->valeur='g';
+	pTakin.plateau[2][1]->valeur='h';
+	pTakin.plateau[2][2]->valeur='-';
+
+	pTakin.affiche();
+
+	PlateauTakin<int> pTakinInt(2,2);
+
+	pTakinInt.plateau[0][0]->valeur=1;
+	pTakinInt.plateau[0][1]->valeur=2;
+	pTakinInt.plateau[1][0]->valeur=3;
+	pTakinInt.plateau[1][1]->valeur=0;
+
+    pTakinInt.affiche();
+
 }

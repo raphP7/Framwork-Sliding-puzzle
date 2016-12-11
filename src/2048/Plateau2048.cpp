@@ -5,6 +5,11 @@
  *      Author: raphael
  */
 
+#include "Plateau2048.hpp"
+#include "Case2048.hpp"
 
+Plateau2048::Plateau2048(int sizeI, int sizeJ):FramPlateauLand<Case2048>(sizeI, sizeJ){
+
+}
 
 
