@@ -50,13 +50,18 @@ int speedGame;
 public:
 
     void startGame(){
-
-        while(true){
+    	this->affiche();
+        do{
+            this->do1Round();
             this->affiche();
-            this->doARound();
-        }
+        }while(!this->gameEnd());
 
+        cout<<"JEUX FINI"<<endl;
 
+    }
+
+    virtual bool gameEnd(){
+    	return false;
     }
 
     void doSwap(int i1,int j1,int i2,int j2){
@@ -96,7 +101,7 @@ public:
     }
 
 
-    void doARound(){
+    void do1Round(){
         if(modeJoeur){
             this->performAction();
         }

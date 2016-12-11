@@ -17,6 +17,40 @@ public:
 
     PlateauTakin(int sizeI, int sizeJ):FramPlateauLand<CaseTakin<T> >(sizeI, sizeJ){}
 
+    virtual bool gameEnd(){
+
+    	iterDoubleVector< CaseTakin<T > > monIter(this->plateau);
+    	CaseTakin<T> *tmpBefore;
+    	CaseTakin<T> *tmpActual;
+
+    	if(monIter.hasnext()){
+    		tmpBefore=monIter.next();
+    	}
+    	while(monIter.hasnext()){
+
+    		tmpActual=monIter.next();
+
+/*
+    		if(!monIter.hasnext()){
+    			//last
+    			if(tmpActual->EmptyCase){
+    				return true;
+    			}else{
+    				return false;
+    			}
+    		}
+*/
+
+    		if(*tmpBefore<*tmpActual){
+    			tmpBefore=tmpActual;
+    		}else{
+    			return false;
+    		}
+    	}
+    	return true;
+
+    }
+
     virtual void performAction(){
 
         int *commande = new int[4];

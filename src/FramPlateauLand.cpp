@@ -75,11 +75,10 @@ int main() {
 	PlateauTakin<int> pTakinInt(2,2);
     pTakinInt.affiche();
 
-    vector<int> v { 34,23 ,8,0 };
+    vector<int> v { 2,7,0,10 };
     pTakinInt.initPlateau(v);
-    pTakinInt.setBlank(1,1);
+    pTakinInt.setBlank(1,0);
     pTakinInt.setModeJeux(true);
     pTakinInt.startGame();
-
 
 }

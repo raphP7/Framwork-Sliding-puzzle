@@ -37,4 +37,16 @@ public:
 
 };
 
+template<class T>bool operator<(CaseTakin<T> const &a, CaseTakin<T> const& b){
+
+	if(a.EmptyCase || b.EmptyCase){
+		return true;
+	}else{
+		return a.valeur<b.valeur;
+	}
+
+
+
+}
+
 #endif /* CASETakin_HPP_ */
