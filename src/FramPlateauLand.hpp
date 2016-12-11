@@ -62,7 +62,21 @@ public:
     }
 
     virtual bool gameEnd(){
+    	//TODO EXCEPTION
     	return false;
+    }
+
+    virtual bool isFusionnable(T* case1,T* case2){
+    	//TODO EXCEPTION
+    	return false;
+    }
+
+    virtual bool isCaseEmpty(T* case1){
+    	//TODO EXCEPTION
+    	    	return false;
+    }
+    virtual void applyFusion(T* case1,T* case2){
+    	//TODO EXCEPTION
     }
 
     void doSwap(int i1,int j1,int i2,int j2){
@@ -70,6 +84,29 @@ public:
         T* tmp=plateau[i1][j1];
         plateau[i1][j1]=plateau[i2][j2];
         plateau[i2][j2]=tmp;
+
+    }
+
+    void doDirectionalSWIPE(char direction,bool recursive){
+
+    	for(int i=0; i < plateau.size();i++){
+    		for(int j=plateau.size()-1;j>0;j--){
+    			bool canMove=false;
+    			int tmpJ=j;
+    			do{
+    				//cout<<"valeur i "<<i<<"  valeur de tmpJ "<<tmpJ<<endl;
+    				if(isCaseEmpty(plateau[i][tmpJ])){
+    					applyFusion(plateau[i][tmpJ-1],plateau[i][tmpJ]);
+    					tmpJ--;
+    				}
+    				else if(isFusionnable(plateau[i][tmpJ-1],plateau[i][tmpJ])){
+    					applyFusion(plateau[i][tmpJ-1],plateau[i][tmpJ]);
+        				canMove=false;
+        			}
+    			}while(canMove && tmpJ>0);
+    		}
+    	}
+
 
     }
 
@@ -82,6 +119,11 @@ public:
             }
             cin>>input[i];
         }
+    }
+
+    void getInputDirectionFromConsole(char * input){
+			cout<<"Entre une valeur :";
+			cin>>input;
     }
 
     char* getCommandeFromConsole(int nbCommandes){

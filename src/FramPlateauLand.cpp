@@ -37,20 +37,21 @@ int main() {
 
 
 	FramPlateauLand<Case2048>* fram;
-    /*
+
     fram = new FramPlateauLand<Case2048>(8, 8); // INTERDIT
 	fram->affiche();
 	fram->plateau[0][0]->valeur=2;
 	fram->affiche();
 	delete fram;
-    */
 
-	/*
-	Plateau2048 pl2048(8,8);
+
+
+	Plateau2048 pl2048(3,3);
 	pl2048.affiche();
 	pl2048.initPlateau();
-	pl2048.affiche();
-	*/
+	pl2048.setModeJeux(true);
+	pl2048.startGame();
+
 
 	/*
 	PlateauTakin<char> pTakin(3,3);
@@ -75,6 +76,7 @@ int main() {
     }
 	pTakin.affiche();
 */
+	/*
 	PlateauTakin<int> pTakinInt(2,2);
     pTakinInt.affiche();
 
@@ -82,6 +84,6 @@ int main() {
     pTakinInt.initPlateau(v);
     pTakinInt.setBlank(1,0);
     pTakinInt.setModeJeux(true);
-    pTakinInt.startGame();
-
+    //pTakinInt.startGame();
+*/
 }
