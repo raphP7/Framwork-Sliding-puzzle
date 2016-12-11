@@ -9,6 +9,8 @@
 #define FRAMPLATEAULAND_HPP_
 #include "CaseGeneric.hpp"
 #include <vector>
+#include <sstream>
+#include <string>
 using namespace std;
 
 template<class T> class iterDoubleVector{
@@ -36,17 +38,84 @@ template<class T> class iterDoubleVector{
         int currentIndex;
         int sizeI;
         int sizeJ;
-
         const vector<vector<T*> > &vec2D;
 
 };
 
 template<class T> class FramPlateauLand
 {
+
+bool modeJoeur;// si TRUE -> utlisateur | FALSE -> automatique
+int speedGame;
+
 public:
 
+    void startGame(){
+
+        while(true){
+            this->affiche();
+            this->doARound();
+        }
+
+
+    }
+
+    void doSwap(int i1,int j1,int i2,int j2){
+
+        T* tmp=plateau[i1][j1];
+        plateau[i1][j1]=plateau[i2][j2];
+        plateau[i2][j2]=tmp;
+
+    }
+
+    void getInputFromConsole(int * input,int size,int groupe){
+        for(int i =0;i<size;i++){
+            if(i%groupe==0){
+                cout<<"Entre une valeur :";
+            }else{
+                cout<<"Entree une valeur associe : ";
+            }
+            cin>>input[i];
+        }
+    }
+
+    char* getCommandeFromConsole(int nbCommandes){
+        if(modeJoeur){
+            char * commandes=new char[nbCommandes+1];
+            for(int i=0; i<nbCommandes;i++){
+                cin>>commandes[i];
+            }
+            commandes[nbCommandes]='\0';
+            cout<<"COMMANDE : ";
+            for(int i=0; i<nbCommandes;i++){
+                cout<<commandes[i];
+            }
+            cout<<endl;
+            return commandes;
+        }
+        return nullptr;
+    }
+
+
+    void doARound(){
+        if(modeJoeur){
+            this->performAction();
+        }
+
+    }
+
+    bool getModeJeux(){
+        return modeJoeur;
+    }
+
+    void setModeJeux(bool modeJeux){
+        modeJoeur=modeJeux;
+    }
+
+    virtual void performAction(){}
     virtual void initPlateau(vector<T> contenuJeu){}
     vector<vector<T*> >plateau;
+
     const string style="-------------------------------------\n";
     //FramPlateauLand(int sizeI, int sizeJ);
 

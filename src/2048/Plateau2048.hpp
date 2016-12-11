@@ -16,6 +16,13 @@ class Plateau2048: public FramPlateauLand<Case2048> {
 
 public:
 	Plateau2048(int sizeI, int sizeJ);
+
+	virtual void performAction(){
+
+
+	}
+
+
 	virtual void initPlateau(vector<int> contenuJeu=DEFAULT_VECTOR){
 
         iterDoubleVector<Case2048> monIter(this->plateau);
