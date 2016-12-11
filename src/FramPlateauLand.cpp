@@ -14,7 +14,9 @@
 
 template<typename T> FramPlateauLand<T>::FramPlateauLand(
 		vector<vector<T> > _pla) :
-		plateau(_pla) {}
+		plateau(_pla), speedGame(1) {
+	modeJoeur = true;
+}
 
 
 

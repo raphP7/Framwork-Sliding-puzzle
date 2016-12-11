@@ -45,10 +45,11 @@ template<class T> class iterDoubleVector{
 template<class T> class FramPlateauLand
 {
 
-bool modeJoeur;// si TRUE -> utlisateur | FALSE -> automatique
-int speedGame;
 
 public:
+	vector<vector<T*> >plateau;
+	int speedGame;
+	bool modeJoeur;// si TRUE -> utlisateur | FALSE -> automatique
 
     void startGame(){
     	this->affiche();
@@ -89,7 +90,7 @@ public:
 
     void doDirectionalSWIPE(char direction,bool recursive){
 
-    	for(int i=0; i < plateau.size();i++){
+    	for(std::size_t i=0; i < plateau.size();i++){
     		for(int j=plateau.size()-1;j>0;j--){
     			bool canMove=false;
     			int tmpJ=j;
@@ -159,9 +160,12 @@ public:
         modeJoeur=modeJeux;
     }
 
+
+
     virtual void performAction(){}
+
     virtual void initPlateau(vector<T> contenuJeu){}
-    vector<vector<T*> >plateau;
+
 
     const string style="-------------------------------------\n";
     //FramPlateauLand(int sizeI, int sizeJ);

@@ -63,7 +63,6 @@ public:
 		}
 		delete commande;
 		addNewValue();
-
 	}
 
 	virtual void addNewValue(){
@@ -83,7 +82,7 @@ public:
 		//select by random the case with a new value
 		random_device seeder;
 		mt19937 engine(seeder());
-		uniform_int_distribution<int> dist(0, monIter.sizeMax-1);
+		uniform_int_distribution<int> dist(0,sizeMax-1);
 		int randomPosition = dist(engine);
 
 
