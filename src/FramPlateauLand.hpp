@@ -11,7 +11,9 @@
 #include <vector>
 #include <sstream>
 #include <string>
+
 using namespace std;
+
 
 template<class T> class iterDoubleVector{
     public:
@@ -74,7 +76,7 @@ public:
 
     virtual bool isCaseEmpty(T* case1){
     	//TODO EXCEPTION
-    	    	return false;
+    	return false;
     }
     virtual void applyFusion(T* case1,T* case2){
     	//TODO EXCEPTION
@@ -88,27 +90,139 @@ public:
 
     }
 
-    void doDirectionalSWIPE(char direction,bool recursive){
+    bool doDirectionalSWIPE(char direction,bool recursive){
 
-    	for(std::size_t i=0; i < plateau.size();i++){
-    		for(int j=plateau.size()-1;j>0;j--){
-    			bool canMove=false;
-    			int tmpJ=j;
-    			do{
-    				//cout<<"valeur i "<<i<<"  valeur de tmpJ "<<tmpJ<<endl;
-    				if(isCaseEmpty(plateau[i][tmpJ])){
-    					applyFusion(plateau[i][tmpJ-1],plateau[i][tmpJ]);
-    					tmpJ--;
-    				}
-    				else if(isFusionnable(plateau[i][tmpJ-1],plateau[i][tmpJ])){
-    					applyFusion(plateau[i][tmpJ-1],plateau[i][tmpJ]);
-        				canMove=false;
-        			}
-    			}while(canMove && tmpJ>0);
+    	bool onMoveDone=false;
+    	//DROITE
+
+    	if(direction=='l'){
+    		for(std::size_t i=0; i < plateau.size();i++){
+				for(int j=plateau.size()-1;j>-1;j--){
+					bool canMove=true;
+					int tmpJ=j;
+					//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
+
+					do{
+						//cout<<"DANS BOUCLE"<<endl;
+						//cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
+
+						if(tmpJ+1==plateau.size()){//limite a droite
+							canMove=false;
+						}else{
+							if(isCaseEmpty(plateau[i][tmpJ])){//case vide , ne ce deplace pas
+								canMove=false;
+							}
+							else if(isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ+1])){
+								applyFusion(plateau[i][tmpJ],plateau[i][tmpJ+1]);
+								tmpJ++;
+								onMoveDone=true;
+							}
+							else{
+								canMove=false;
+							}
+						}
+					}while(canMove);
+				}
     		}
     	}
+    	//GAUCHE
+    	else if(direction=='j'){
+    		for(std::size_t i=0; i < plateau.size();i++){
+				for(int j=0;j<plateau.size();j++){
+					bool canMove=true;
+					int tmpJ=j;
+					//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
 
+					do{
+						//cout<<"DANS BOUCLE"<<endl;
+						//cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
 
+						if(tmpJ-1==-1){//limite a GAUCHE
+							canMove=false;
+						}else{
+							if(isCaseEmpty(plateau[i][tmpJ])){//case vide , ne ce deplace pas
+								canMove=false;
+							}
+							else if(isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ-1])){
+								applyFusion(plateau[i][tmpJ],plateau[i][tmpJ-1]);
+								tmpJ--;
+								onMoveDone=true;
+
+							}
+							else{
+								canMove=false;
+							}
+						}
+					}while(canMove);
+				}
+    		}
+    	//HAUT
+    	}else if(direction=='i'){
+    		for(std::size_t j=0; j < plateau.size();j++){
+				for(int i=0;i<plateau.size();i++){
+					bool canMove=true;
+					int tmpI=i;
+					//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
+
+					do{
+						//cout<<"DANS BOUCLE"<<endl;
+						//cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
+
+						if(tmpI-1==-1){//limite en haut
+							canMove=false;
+						}else{
+							if(isCaseEmpty(plateau[tmpI][j])){//case vide , ne ce deplace pas
+								canMove=false;
+							}
+							else if(isFusionnable(plateau[tmpI][j],plateau[tmpI-1][j])){
+								applyFusion(plateau[tmpI][j],plateau[tmpI-1][j]);
+								tmpI--;
+								onMoveDone=true;
+							}
+							else{
+								canMove=false;
+							}
+						}
+					}while(canMove);
+				}
+    		}
+
+    	//BAS
+    	}else if(direction=='k'){
+    		for(std::size_t j=0; j < plateau.size();j++){
+				for(int i=plateau.size()-1;i>-1;i--){
+					bool canMove=true;
+					int tmpI=i;
+					//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
+
+					do{
+						//cout<<"DANS BOUCLE"<<endl;
+						//cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
+
+						if(tmpI==plateau.size()-1){//limite en bas
+							canMove=false;
+						}else{
+							if(isCaseEmpty(plateau[tmpI][j])){//case vide , ne ce deplace pas
+								canMove=false;
+							}
+							else if(isFusionnable(plateau[tmpI][j],plateau[tmpI+1][j])){
+								applyFusion(plateau[tmpI][j],plateau[tmpI+1][j]);
+								tmpI++;
+								onMoveDone=true;
+							}
+							else{
+								canMove=false;
+							}
+						}
+					}while(canMove);
+				}
+    		}
+    	}else{
+    		//TODO exception
+    	}
+
+    	cout<<"Un mouvomeent a ete realiser :"<<onMoveDone<<endl;
+    	return onMoveDone;
     }
 
     void getInputFromConsole(int * input,int size,int groupe){

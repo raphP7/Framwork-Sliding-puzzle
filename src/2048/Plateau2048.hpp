@@ -20,13 +20,13 @@ public:
 
 	virtual bool isFusionnable(Case2048* case1, Case2048* case2){
 
-		cout<<"case "<<case1->i<<" "<<case1->j<<"  ET "<<case2->i<<" "<<case2->j<<endl;
+		//cout<<"case1 "<<case1->i<<" "<<case1->j<<"  ET case2"<<case2->i<<" "<<case2->j<<endl;
 
 		if(case1->valeur==0 && case2->valeur==0){
 			return false;
 		}
 
-		if(case1->valeur==0 || (case1->valeur==case2->valeur)){
+		if(case2->valeur==0 || (case1->valeur==case2->valeur)){
 			return true;
 		}else{
 		return false;
@@ -42,7 +42,7 @@ public:
 		case2->valeur+=case1->valeur;
 		case1->valeur=0;
 
-		cout<<"fusion de "<<case1->i<<" "<<case1->j<<" dans "<<case2->i<<" "<<case2->j<<endl;
+		//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" dans "<<case2->i<<" "<<case2->j<<endl;
 
 	}
 
@@ -54,8 +54,12 @@ public:
 			this->getInputDirectionFromConsole(commande);
 
 			if(*commande=='i' || *commande=='j' || *commande=='k' || *commande=='l'){
-				doDirectionalSWIPE(*commande,recursive);
-				Notdone=false;
+				if(doDirectionalSWIPE(*commande,recursive)){
+					Notdone=false;
+				}else{
+					cout<<"MOUVEMENT INEFICASSE"<<endl;
+				}
+
 			}
 			else{
 				cout<<"BAD INPUT , i -> UP | j -> LEFT | k -> DOWN | l -> RIGHT"<<endl;
@@ -79,6 +83,9 @@ public:
 		}
 		int sizeMax=vecFreeCase.size();
 
+		if(sizeMax==0){
+			return;
+		}
 		//select by random the case with a new value
 		random_device seeder;
 		mt19937 engine(seeder());
@@ -111,7 +118,13 @@ public:
         uniform_int_distribution<int> dist(0, monIter.sizeMax-1);
         int randomPosition = dist(engine);
 
-        cout<<"POSITION CHOIS "<<randomPosition<<"   size MAx :"<<monIter.sizeMax<<endl;
+        //cout<<"POSITION CHOIS "<<randomPosition<<"   size MAx :"<<monIter.sizeMax-1<<endl;
+
+        int i=randomPosition/plateau.size();
+        int j=randomPosition%plateau.size();
+
+        plateau[i][j]->valeur=2;
+        /*
         int compteur=0;
         bool notFinish=1;
         while(monIter.hasnext() && notFinish){
@@ -124,6 +137,7 @@ public:
             }
             compteur++;
         }
+        */
 	}
 };
 
