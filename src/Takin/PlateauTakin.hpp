@@ -19,9 +19,28 @@ public:
     {
 
     }
-    void initPlateau(){
+    virtual void initPlateau(vector<T> contenuJeu){
 
+        typename vector<T>::iterator col(contenuJeu.begin());
 
+        iterDoubleVector< CaseTakin<T > > monIter(this->plateau);
+
+        bool notFinish=1;
+        while(monIter.hasnext() && notFinish){
+            if(col != contenuJeu.end()){
+                monIter.next()->valeur=*col;
+                col++;
+            }else{
+                //TODO
+                cout<<"pas assez d'elements !"<<endl;
+                notFinish=0;
+            }
+        }
+
+        if(col != contenuJeu.end()){
+            //TODO
+            cout<<"TROP d'elements !"<<endl;
+        }
     }
 };
 

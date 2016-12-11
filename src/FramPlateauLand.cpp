@@ -16,6 +16,8 @@ template<typename T> FramPlateauLand<T>::FramPlateauLand(
 		vector<vector<T> > _pla) :
 		plateau(_pla) {}
 
+
+
 int main() {
     std::cout<<"bonjour"<<std::endl;
 
@@ -42,9 +44,9 @@ int main() {
 	fram->affiche();
 	delete fram;
     */
-	Plateau2048 pl2048(3,3);
+	Plateau2048 pl2048(8,8);
 	pl2048.affiche();
-	pl2048.plateau[0][1]->valeur=8;
+	pl2048.initPlateau();
 	pl2048.affiche();
 
 
@@ -60,24 +62,24 @@ int main() {
 	pTakin.plateau[2][2]->valeur='-';
 
 
+	pTakin.affiche();
 
     iterDoubleVector< CaseTakin<char > > monIter(pTakin.plateau);
-    cout<<"affichage avec iterateur perso"<<endl;
+    cout<<"modification avec iterateur"<<endl;
     while(monIter.hasnext()){
-        cout<<monIter.next()->valeur<<endl;
+        monIter.next()->valeur='P';
 
     }
 	pTakin.affiche();
 
+
 	PlateauTakin<int> pTakinInt(2,2);
-
-	pTakinInt.plateau[0][0]->valeur=1;
-	pTakinInt.plateau[0][1]->valeur=2;
-	pTakinInt.plateau[1][0]->valeur=3;
-	pTakinInt.plateau[1][1]->valeur=0;
-
     pTakinInt.affiche();
 
+    vector<int> v { 34,23 ,8,0 };
+    pTakinInt.initPlateau(v);
+
+    pTakinInt.affiche();
 
 
 }

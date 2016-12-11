@@ -13,8 +13,8 @@ using namespace std;
 
 template<class T> class iterDoubleVector{
     public:
-
-        iterDoubleVector(vector<vector<T * > >  &arg):vec2D(arg),currentIndex(-1){
+        int sizeMax;
+        iterDoubleVector(vector<vector<T * > >  &arg ):vec2D(arg),currentIndex(-1){
             this->sizeI=vec2D.size();
             this->sizeJ=vec2D[0].size();
             this->sizeMax=(this->sizeI)*(this->sizeJ);
@@ -36,8 +36,8 @@ template<class T> class iterDoubleVector{
         int currentIndex;
         int sizeI;
         int sizeJ;
-        int sizeMax;
-        vector<vector<T*> > &vec2D;
+
+        const vector<vector<T*> > &vec2D;
 
 };
 
@@ -45,7 +45,7 @@ template<class T> class FramPlateauLand
 {
 public:
 
-    virtual void initPlateau()=0;
+    virtual void initPlateau(vector<T> contenuJeu){}
     vector<vector<T*> >plateau;
     const string style="-------------------------------------\n";
     //FramPlateauLand(int sizeI, int sizeJ);
