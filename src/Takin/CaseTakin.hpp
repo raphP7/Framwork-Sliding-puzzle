@@ -16,10 +16,11 @@ template<class T>class CaseTakin: public CaseGeneric
 {
 
 public:
-
+	T valeur;
     bool EmptyCase;
 
-    T valeur;
+
+
     virtual void Print(std::ostream& O) const
     {
         O << valeur << " ";

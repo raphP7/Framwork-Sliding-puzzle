@@ -15,6 +15,8 @@ template<class T>class PlateauTakin: public FramPlateauLand<CaseTakin <T> >
 {
 public:
 
+	virtual ~PlateauTakin(){}
+
     PlateauTakin(int sizeI, int sizeJ):FramPlateauLand<CaseTakin<T> >(sizeI, sizeJ){}
 
     virtual bool gameEnd(){

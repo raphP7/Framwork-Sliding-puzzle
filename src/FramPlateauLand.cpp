@@ -44,12 +44,15 @@ int main() {
 	fram->affiche();
 	delete fram;
     */
+
+	/*
 	Plateau2048 pl2048(8,8);
 	pl2048.affiche();
 	pl2048.initPlateau();
 	pl2048.affiche();
+	*/
 
-
+	/*
 	PlateauTakin<char> pTakin(3,3);
 	pTakin.plateau[0][0]->valeur='a';
 	pTakin.plateau[0][1]->valeur='b';
@@ -71,7 +74,7 @@ int main() {
 
     }
 	pTakin.affiche();
-
+*/
 	PlateauTakin<int> pTakinInt(2,2);
     pTakinInt.affiche();
 

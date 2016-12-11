@@ -34,10 +34,11 @@ template<class T> class iterDoubleVector{
         }
 
     private:
+        const vector<vector<T*> > &vec2D;
         int currentIndex;
         int sizeI;
         int sizeJ;
-        const vector<vector<T*> > &vec2D;
+
 
 };
 
@@ -140,6 +141,8 @@ public:
                 this->plateau[i].push_back(new T(i, j));
             }
         }
+        speedGame=1;
+        modeJoeur=true;
     }
 
     FramPlateauLand(vector<vector <T>  > _pla);
