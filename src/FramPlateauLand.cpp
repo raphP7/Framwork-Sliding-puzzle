@@ -27,29 +27,26 @@ int main() {
     };
 
 
+    //FramPlateauLand<int>* fr; //INTERDIT
+
     FramPlateauLand<mama>* fr;
-    fr = new FramPlateauLand<mama>(8, 8);
+    //fr = new FramPlateauLand<mama>(8, 8);
+
+
 
 	FramPlateauLand<Case2048>* fram;
-	fram = new FramPlateauLand<Case2048>(8, 8);
+    /*
+    fram = new FramPlateauLand<Case2048>(8, 8); // INTERDIT
 	fram->affiche();
 	fram->plateau[0][0]->valeur=2;
 	fram->affiche();
 	delete fram;
-
+    */
 	Plateau2048 pl2048(3,3);
 	pl2048.affiche();
 	pl2048.plateau[0][1]->valeur=8;
 	pl2048.affiche();
 
-
-	class test{
-        public:
-            string txt;
-            test(string _txt):txt(_txt){
-
-            }
-	};
 
 	PlateauTakin<char> pTakin(3,3);
 	pTakin.plateau[0][0]->valeur='a';
@@ -62,6 +59,14 @@ int main() {
 	pTakin.plateau[2][1]->valeur='h';
 	pTakin.plateau[2][2]->valeur='-';
 
+
+
+    iterDoubleVector< CaseTakin<char > > monIter(pTakin.plateau);
+    cout<<"affichage avec iterateur perso"<<endl;
+    while(monIter.hasnext()){
+        cout<<monIter.next()->valeur<<endl;
+
+    }
 	pTakin.affiche();
 
 	PlateauTakin<int> pTakinInt(2,2);
@@ -72,5 +77,7 @@ int main() {
 	pTakinInt.plateau[1][1]->valeur=0;
 
     pTakinInt.affiche();
+
+
 
 }

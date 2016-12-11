@@ -14,6 +14,7 @@
 class Plateau2048: public FramPlateauLand<Case2048> {
 public:
 	Plateau2048(int sizeI, int sizeJ);
+	void initPlateau(){}
 };
 
 #endif /* PLATEAU2048_HPP_ */

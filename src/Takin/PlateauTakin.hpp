@@ -19,6 +19,10 @@ public:
     {
 
     }
+    void initPlateau(){
+
+
+    }
 };
 
 #endif /* PLATEAUTakin_HPP_ */
