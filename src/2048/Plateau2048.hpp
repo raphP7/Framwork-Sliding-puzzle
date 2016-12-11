@@ -22,7 +22,6 @@ public:
 
 	}
 
-
 	virtual void initPlateau(vector<int> contenuJeu=DEFAULT_VECTOR){
 
         iterDoubleVector<Case2048> monIter(this->plateau);
@@ -46,7 +45,6 @@ public:
             }
             compteur++;
         }
-
 	}
 };
 

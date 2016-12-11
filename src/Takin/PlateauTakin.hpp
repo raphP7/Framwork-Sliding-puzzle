@@ -15,10 +15,7 @@ template<class T>class PlateauTakin: public FramPlateauLand<CaseTakin <T> >
 {
 public:
 
-    PlateauTakin(int sizeI, int sizeJ):FramPlateauLand<CaseTakin<T> >(sizeI, sizeJ)
-    {
-
-    }
+    PlateauTakin(int sizeI, int sizeJ):FramPlateauLand<CaseTakin<T> >(sizeI, sizeJ){}
 
     virtual void performAction(){
 
@@ -35,27 +32,40 @@ public:
         int sizeMaxJ=this->plateau[0].size()-1;
         if(i1<0 || j1<0 || i2<0 || j2<0 ||
             i1>sizeMaxI || i2>sizeMaxI || j1>sizeMaxJ || j2>sizeMaxJ ||
-            ( i1==i2 && j1==j2)
+            ( i1==i2 && j1==j2) || i1+1<i2 || i2+1<i1 || j1+1<j2 || j2+1<j1||
+            i1>i2+1 || i2>i1+1 || j1>j2+1 || j2>j1+1
+
+
+            //TODO interdire les mouvements diagonaux
             ){
-            cout<<"valeur INCORRECT"<<endl;
-        }else{
+            cerr<<"valeur INCORRECT ou Mouvement Interdit"<<endl;
+        }
+
+
+        else if(!(this->plateau[i1][j1]->EmptyCase || this->plateau[i2][j2]->EmptyCase)){
+
+            cerr<<"select the empty case"<<endl;
+
+        }
+        else{
 
             this->doSwap(i1,j1,i2,j2);
         }
-
     }
 
     virtual void initPlateau(vector<T> contenuJeu){
 
-        typename vector<T>::iterator col(contenuJeu.begin());
+        typename vector<T>::iterator iterContenuJeu(contenuJeu.begin());
 
         iterDoubleVector< CaseTakin<T > > monIter(this->plateau);
 
         bool notFinish=1;
         while(monIter.hasnext() && notFinish){
-            if(col != contenuJeu.end()){
-                monIter.next()->valeur=*col;
-                col++;
+            if(iterContenuJeu != contenuJeu.end()){
+
+                monIter.next()->valeur=*iterContenuJeu;
+
+                iterContenuJeu++;
             }else{
                 //TODO
                 cout<<"pas assez d'elements !"<<endl;
@@ -63,10 +73,14 @@ public:
             }
         }
 
-        if(col != contenuJeu.end()){
+        if(iterContenuJeu != contenuJeu.end()){
             //TODO
             cout<<"TROP d'elements !"<<endl;
         }
+    }
+
+    void setBlank(int i,int j){
+        this->plateau[i][j]->EmptyCase=true;
     }
 };
 

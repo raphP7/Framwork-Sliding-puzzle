@@ -22,7 +22,6 @@ template<class T> class iterDoubleVector{
             this->sizeMax=(this->sizeI)*(this->sizeJ);
         }
 
-
         bool hasnext(){
             return currentIndex<sizeMax-1;
         }
