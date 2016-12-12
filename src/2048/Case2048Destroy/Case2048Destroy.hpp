@@ -29,7 +29,8 @@ public:
 
 	friend bool operator>(Case2048Destroy & case1, Case2048 & case2)
 	{
-
+		case2.valeur=0;
+		case1.valeur=0;
 	    return true;
 	}
 
@@ -43,8 +44,5 @@ public:
 	}
 
 };
-
-
-
 
 #endif /* CASE2048DESTROY_HPP_ */

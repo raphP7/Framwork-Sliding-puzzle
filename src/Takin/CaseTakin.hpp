@@ -17,9 +17,7 @@ template<class T>class CaseTakin: public CaseGeneric
 
 public:
 	T valeur;
-    bool EmptyCase;
-
-
+	bool EmptyCase;
 
     virtual void Print(std::ostream& O) const
     {
@@ -36,18 +34,18 @@ public:
         //std::cout<<"delete Takin de "<<i<<" "<<j<<std::endl;
     }
 
+    bool getEmptyCase(){
+    	return EmptyCase;
+    }
+
+    friend bool operator<(CaseTakin<T> const &a, CaseTakin<T> const& b){
+    	if(a.EmptyCase || b.EmptyCase){
+    			return true;
+    		}else{
+    			return a.valeur<b.valeur;
+    		}
+    }
 };
 
-template<class T>bool operator<(CaseTakin<T> const &a, CaseTakin<T> const& b){
-
-	if(a.EmptyCase || b.EmptyCase){
-		return true;
-	}else{
-		return a.valeur<b.valeur;
-	}
-
-
-
-}
 
 #endif /* CASETakin_HPP_ */

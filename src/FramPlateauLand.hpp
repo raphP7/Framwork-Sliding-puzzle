@@ -17,7 +17,7 @@ using namespace std;
 
 template<class T> class iterDoubleVector{
     public:
-        int sizeMax;
+
         iterDoubleVector(vector<vector<T * > >  &arg ):vec2D(arg),currentIndex(-1){
             this->sizeI=vec2D.size();
             this->sizeJ=vec2D[0].size();
@@ -35,11 +35,15 @@ template<class T> class iterDoubleVector{
             return this->vec2D[i][j];
         }
 
+        int getSizeMax(){
+        	return sizeMax;
+        }
     private:
         const vector<vector<T*> > &vec2D;
         int currentIndex;
         int sizeI;
         int sizeJ;
+        int sizeMax;
 
 
 };
@@ -47,6 +51,9 @@ template<class T> class iterDoubleVector{
 template<class T> class FramPlateauLand
 {
 
+private:
+	int PlateauSizeI;
+	int PlateauSizeJ;
 
 public:
 	vector<vector<T*> >plateau;
@@ -86,6 +93,18 @@ public:
     	cerr<<"PAS BON"<<endl;
     }
 
+    virtual void performAction(){
+    	//TODO EXCEPTION
+        cerr<<"PAS BON"<<endl;
+    }
+
+    virtual void initPlateau(vector<T> contenuJeu){
+    	//TODO EXCEPTION
+        cerr<<"PAS BON"<<endl;
+    }
+
+
+
     void doSwap(int i1,int j1,int i2,int j2){
 
         T* tmp=plateau[i1][j1];
@@ -94,14 +113,14 @@ public:
 
     }
 
-    bool doDirectionalSWIPE(char direction,bool recursive){
+    bool doDirectionalSWIPE(char direction,bool recursive,bool justTest=false){
 
     	bool onMoveDone=false;
     	//DROITE
 
     	if(direction=='l'){
-    		for(size_t i=0; i < plateau.size();i++){
-				for(int j=plateau.size()-1;j>-1;j--){
+    		for(int i=0; i < PlateauSizeI;i++){
+				for(int j=PlateauSizeJ-1;j>-1;j--){
 					bool canMove=true;
 					size_t tmpJ=j;
 					//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
@@ -117,7 +136,11 @@ public:
 								canMove=false;
 							}
 							else if(isFusionnable(*plateau[i][tmpJ],*plateau[i][tmpJ+1])){
-								applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ+1]);
+								if(!justTest){
+									applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ+1]);
+								}else{
+									return true;
+								}
 								tmpJ++;
 								onMoveDone=true;
 							}
@@ -131,8 +154,8 @@ public:
     	}
     	//GAUCHE
     	else if(direction=='j'){
-    		for(size_t i=0; i < plateau.size();i++){
-				for(size_t j=0;j<plateau.size();j++){
+    		for(int i=0; i < PlateauSizeI;i++){
+				for(int j=0;j<PlateauSizeJ;j++){
 					bool canMove=true;
 					int tmpJ=j;
 
@@ -145,7 +168,12 @@ public:
 								canMove=false;
 							}
 							else if(isFusionnable(*plateau[i][tmpJ],*plateau[i][tmpJ-1])){
-								applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ-1]);
+								if(!justTest){
+									applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ-1]);
+								}
+								else {
+									return true;
+								}
 								tmpJ--;
 								onMoveDone=true;
 
@@ -159,8 +187,8 @@ public:
     		}
     	//HAUT
     	}else if(direction=='i'){
-    		for(size_t j=0; j < plateau.size();j++){
-				for(size_t i=0;i<plateau.size();i++){
+    		for(int j=0; j < PlateauSizeJ;j++){
+				for(int i=0;i<PlateauSizeI;i++){
 					bool canMove=true;
 					int tmpI=i;
 					do{
@@ -172,7 +200,12 @@ public:
 								canMove=false;
 							}
 							else if(isFusionnable(*plateau[tmpI][j],*plateau[tmpI-1][j])){
-								applyFusion(*plateau[tmpI][j],*plateau[tmpI-1][j]);
+								if (!justTest) {
+									applyFusion(*plateau[tmpI][j],*plateau[tmpI-1][j]);
+
+								} else {
+									return true;
+								}
 								tmpI--;
 								onMoveDone=true;
 							}
@@ -186,8 +219,8 @@ public:
 
     	//BAS
     	}else if(direction=='k'){
-    		for(size_t j=0; j < plateau.size();j++){
-				for(int i=plateau.size()-1;i>-1;i--){
+    		for(int j=0; j < PlateauSizeJ;j++){
+				for(int i=PlateauSizeI-1;i>-1;i--){
 					bool canMove=true;
 					size_t tmpI=i;
 
@@ -200,7 +233,13 @@ public:
 								canMove=false;
 							}
 							else if(isFusionnable(*plateau[tmpI][j],*plateau[tmpI+1][j])){
-								applyFusion(*plateau[tmpI][j],*plateau[tmpI+1][j]);
+
+								if (!justTest) {
+									applyFusion(*plateau[tmpI][j],*plateau[tmpI+1][j]);
+
+								} else {
+									return true;
+								}
 								tmpI++;
 								onMoveDone=true;
 							}
@@ -215,19 +254,30 @@ public:
     		//TODO exception
     	}
 
-    	cout<<"Un mouvomeent a ete realiser ?:"<<onMoveDone<<endl;
+    	//cout<<"Un mouvomeent a ete realiser ?:"<<onMoveDone<<endl;
     	return onMoveDone;
     }
 
-    void getInputFromConsole(int * input,int size,int groupe){
+    void getInputFromConsole(int * input,int size,int groupe,string const& message1=string(),string const& message2=string()){
         for(int i =0;i<size;i++){
             if(i%groupe==0){
-                cout<<"Entre une valeur :";
-            }else{
-                cout<<"Entree une valeur associe : ";
-            }
-            cin>>input[i];
-        }
+
+            	if(!message1.empty()){
+            		cout<<message1;
+            	}else{
+            		cout<<"Entre une valeur :";
+            	}
+
+			} else {
+				if (!message1.empty()) {
+					cout<<message2;
+				} else {
+					cout << "Entree une valeur associe : ";
+				}
+
+			}
+			cin >> input[i];
+		}
     }
 
     void getInputDirectionFromConsole(char * input){
@@ -270,10 +320,6 @@ public:
 
 
 
-    virtual void performAction(){}
-
-    virtual void initPlateau(vector<T> contenuJeu){}
-
 
     const string style="-------------------------------------\n";
     //FramPlateauLand(int sizeI, int sizeJ);
@@ -282,24 +328,24 @@ public:
     FramPlateauLand(int sizeI, int sizeJ)
     {
 
-        static_assert(std::is_base_of<CaseGeneric, T>::value, "wrong type");
+        static_assert(std::is_base_of< CaseGeneric, T>::value, "wrong type");
 
         for (int i = 0; i < sizeI; i++)
         {
-            std::vector<T*> tab;
+            vector<T*> tab;
             this->plateau.push_back(tab);
 
             for (int j = 0; j < sizeJ; j++)
             {
-
-                this->plateau[i].push_back(new T(i, j));
+                plateau[i].push_back(new T( i, j));
             }
         }
         speedGame=1;
         modeJoeur=true;
-    }
+        PlateauSizeI=sizeI;
+        PlateauSizeJ=sizeJ;
 
-    FramPlateauLand(vector<vector <T>  > _pla);
+    }
 
     void affiche()
     {
@@ -323,7 +369,7 @@ public:
     virtual ~FramPlateauLand()
     {
 
-        static_assert(std::is_base_of<CaseGeneric, T>::value, "wrong type");
+        //static_assert(std::is_base_of<CaseGeneric, T>::value, "wrong type");
 
         typename vector< vector<T*> >::iterator row;
         typename vector<T*>::iterator col;
