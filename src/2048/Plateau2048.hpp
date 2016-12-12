@@ -18,29 +18,16 @@ public:
 	Plateau2048(int sizeI, int sizeJ);
 	bool recursive;
 
-	virtual bool isFusionnable(Case2048* case1, Case2048* case2){
-
-		//cout<<"case1 "<<case1->i<<" "<<case1->j<<"  ET case2"<<case2->i<<" "<<case2->j<<endl;
-
-		if(case1->valeur==0 && case2->valeur==0){
-			return false;
-		}
-
-		if(case2->valeur==0 || (case1->valeur==case2->valeur)){
-			return true;
-		}else{
-		return false;
-		}
+	virtual bool isFusionnable(Case2048 const& case1, Case2048 const& case2){
+		return operator==(case1,case2);
 	}
 
-	virtual bool isCaseEmpty(Case2048* case1){
-		return case1->valeur==0;
+	virtual bool isCaseEmpty(Case2048 const& case1){
+		return case1.valeur==0;
 	}
 
-
-	virtual void applyFusion(Case2048* case1,Case2048* case2){
-		case2->valeur+=case1->valeur;
-		case1->valeur=0;
+	virtual void applyFusion(Case2048 & case1,Case2048 & case2){
+		case1>case2;
 
 		//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" dans "<<case2->i<<" "<<case2->j<<endl;
 
@@ -118,26 +105,12 @@ public:
         uniform_int_distribution<int> dist(0, monIter.sizeMax-1);
         int randomPosition = dist(engine);
 
-        //cout<<"POSITION CHOIS "<<randomPosition<<"   size MAx :"<<monIter.sizeMax-1<<endl;
-
         int i=randomPosition/plateau.size();
         int j=randomPosition%plateau.size();
 
-        plateau[i][j]->valeur=2;
-        /*
-        int compteur=0;
-        bool notFinish=1;
-        while(monIter.hasnext() && notFinish){
 
-            if(compteur==randomPosition){
-                monIter.next()->valeur=2;
-                notFinish=0;
-            }else{
-                monIter.next();
-            }
-            compteur++;
-        }
-        */
+        plateau[i][j]->valeur=2;
+
 	}
 };
 

@@ -12,4 +12,3 @@ Plateau2048::Plateau2048(int sizeI, int sizeJ):FramPlateauLand<Case2048>(sizeI, 
 	recursive=false;
 }
 
-
