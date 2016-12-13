@@ -11,6 +11,7 @@
 #include <vector>
 #include <sstream>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -71,36 +72,38 @@ public:
 
     }
 
-    virtual bool gameEnd(){
+    virtual bool gameEnd()=0;
+    /*{
     	//TODO EXCEPTION
     	cerr<<"PAS BON"<<endl;
     	return false;
     }
-
-    virtual bool isFusionnable(T const& case1,T const& case2){
+*/
+    virtual bool isFusionnable(T * case1,T * case2)const{
     	//TODO EXCEPTION
-    	cerr<<"PAS BON"<<endl;
+    	cerr<<"PAS BON isFusionnable"<<endl;
     	return false;
     }
 
     virtual bool isCaseEmpty(T const& case1){
     	//TODO EXCEPTION
-    	cerr<<"PAS BON"<<endl;
+    	cerr<<"PAS BON isCaseEmpty"<<endl;
     	return false;
     }
-    virtual void applyFusion(T & case1,T & case2){
+    virtual bool applyFusion(T & case1,T & case2){
     	//TODO EXCEPTION
-    	cerr<<"PAS BON"<<endl;
+    	cerr<<"PAS BON applyFusion"<<endl;
+    	return false;
     }
 
     virtual void performAction(){
     	//TODO EXCEPTION
-        cerr<<"PAS BON"<<endl;
+        cerr<<"PAS BON performAction"<<endl;
     }
 
     virtual void initPlateau(vector<T> contenuJeu){
     	//TODO EXCEPTION
-        cerr<<"PAS BON"<<endl;
+        cerr<<"PAS BON initPlateau"<<endl;
     }
 
 
@@ -135,7 +138,7 @@ public:
 							if(isCaseEmpty(*plateau[i][tmpJ])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
-							else if(isFusionnable(*plateau[i][tmpJ],*plateau[i][tmpJ+1])){
+							else if(isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ+1])){
 								if(!justTest){
 									applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ+1]);
 								}else{
@@ -167,7 +170,7 @@ public:
 							if(isCaseEmpty(*plateau[i][tmpJ])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
-							else if(isFusionnable(*plateau[i][tmpJ],*plateau[i][tmpJ-1])){
+							else if(isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ-1])){
 								if(!justTest){
 									applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ-1]);
 								}
@@ -199,7 +202,7 @@ public:
 							if(isCaseEmpty(*plateau[tmpI][j])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
-							else if(isFusionnable(*plateau[tmpI][j],*plateau[tmpI-1][j])){
+							else if(isFusionnable(plateau[tmpI][j],plateau[tmpI-1][j])){
 								if (!justTest) {
 									applyFusion(*plateau[tmpI][j],*plateau[tmpI-1][j]);
 
@@ -232,7 +235,7 @@ public:
 							if(isCaseEmpty(*plateau[tmpI][j])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
-							else if(isFusionnable(*plateau[tmpI][j],*plateau[tmpI+1][j])){
+							else if(isFusionnable(plateau[tmpI][j],plateau[tmpI+1][j])){
 
 								if (!justTest) {
 									applyFusion(*plateau[tmpI][j],*plateau[tmpI+1][j]);
@@ -257,6 +260,34 @@ public:
     	//cout<<"Un mouvomeent a ete realiser ?:"<<onMoveDone<<endl;
     	return onMoveDone;
     }
+
+    T* getRandomEmptyCase() {
+    	iterDoubleVector<T> monIter(this->plateau);
+
+    	//list all the empty cases
+    	vector<T*> vecFreeCase;
+    	T * tmp;
+    	while (monIter.hasnext()) {
+    		tmp = monIter.next();
+    		if (tmp->empty) {
+    			vecFreeCase.push_back(tmp);
+    		}
+    	}
+    	int sizeMax = vecFreeCase.size();
+
+    	if (sizeMax == 0) {
+    		return nullptr;
+    	}
+    	//select by random the case with a new value
+    	random_device seeder;
+    	mt19937 engine(seeder());
+    	uniform_int_distribution<int> dist(0, sizeMax - 1);
+    	int randomPosition = dist(engine);
+
+    	return vecFreeCase[randomPosition];
+    }
+
+
 
     void getInputFromConsole(int * input,int size,int groupe,string const& message1=string(),string const& message2=string()){
         for(int i =0;i<size;i++){

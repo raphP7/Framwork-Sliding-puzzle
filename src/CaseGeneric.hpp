@@ -15,8 +15,9 @@ class CaseGeneric {
 public:
 	int i;
 	int j;
+	bool empty;
 	friend std::ostream& operator <<(std::ostream& O, const CaseGeneric& B);
-	CaseGeneric(int _i, int _j);
+	CaseGeneric(int _i, int _j,bool _empty);
 	virtual void Print(std::ostream& O) const;
 	virtual ~CaseGeneric();
 };

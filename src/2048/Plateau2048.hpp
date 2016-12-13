@@ -10,6 +10,7 @@
 #include "Case2048.hpp"
 #include "../FramPlateauLand.hpp"
 #include <random>
+#include <sstream>
 
 static vector<int> DEFAULT_VECTOR;
 class Plateau2048: public FramPlateauLand<Case2048> {
@@ -19,9 +20,9 @@ public:
 	Plateau2048(int sizeI, int sizeJ);
 	bool recursive;
 
-	virtual bool isFusionnable(Case2048 const& case1, Case2048 const& case2);
+	virtual bool isFusionnable(Case2048 * case1, Case2048 * case2)const;
 	virtual bool isCaseEmpty(Case2048 const& case1);
-	virtual void applyFusion(Case2048 & case1, Case2048 & case2);
+	virtual bool applyFusion(Case2048 & case1, Case2048 & case2);
 
 	virtual void performAction();
 

@@ -14,33 +14,31 @@ using namespace std;
 
 class Case2048Destroy: public Case2048 {
 
+private:
+
+
 public:
 	virtual void Print(std::ostream& O) const;
 	Case2048Destroy(int _i, int _j);
 	~Case2048Destroy();
 
-
-	friend bool operator>(Case2048 & case1, Case2048Destroy & case2)
-	{
-		case2.valeur=0;
-		case1.valeur=0;
-	    return true;
-	}
-
-	friend bool operator>(Case2048Destroy & case1, Case2048 & case2)
-	{
-		case2.valeur=0;
-		case1.valeur=0;
-	    return true;
-	}
-
-	friend bool operator==(Case2048 const& case1, Case2048Destroy const& case2) {
+	virtual bool operator==( Case2048& case2){
+		cout<<"DANS DESTROY == avec "<<this->valeur<<" et "<<case2.valeur<<endl;
 		return true;
+	 }
 
+	virtual bool operator>(Case2048& case2) {
+		if (*this == case2) {
+			cout<<"DANS DESTROY > avec "<<this->valeur<<" et "<<case2.valeur<<endl;
+			case2.valeur = 0;
+			this->valeur = 0;
+			return true;
+
+		}
+		return false;
 	}
-
-	friend bool operator==(Case2048Destroy const& case1, Case2048 const& case2) {
-		return true;
+	virtual bool operator<(Case2048& case2) {
+		return *this>case2;
 	}
 
 };

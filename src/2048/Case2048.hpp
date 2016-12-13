@@ -23,29 +23,40 @@ public:
 	/**
 	 * Renvoi true si les deux cases peuvent FUSIONNER
 	 */
-	friend bool operator==(Case2048 const& case1, Case2048 const& case2) {
 
-		if (case1.valeur == 0 && case2.valeur == 0) {
-			return false;
-		}
-		if (case2.valeur == 0 || (case1.valeur == case2.valeur)) {
+	virtual bool operator==( CaseGeneric& case2){
+		return false;
+	}
+	virtual bool operator==( Case2048& case2){
+			cout<<"DANS D2048 == avec "<<this->valeur<<" et "<<case2.valeur<<endl;
+
+			if (this->valeur == 0 && case2.valeur == 0) {
+				return false;
+			}
+			if (case2.valeur == 0 || (this->valeur == case2.valeur)) {
+				return true;
+			} else {
+				return false;
+			}
+	 }
+
+	virtual bool operator>( Case2048& case2){
+		if(*this==case2){
+			cout<<"DANS D2048 >  avec "<<this->valeur<<" et "<<case2.valeur<<endl;
+			case2.valeur+=this->valeur;
+			case2.empty=false;
+			this->valeur=0;
+			this->empty=true;
 			return true;
-		} else {
+		}else{
 			return false;
 		}
-
+	}
+	virtual bool operator<( Case2048& case2){
+		return *this>case2;
 	}
 
-	/*
-	 * deplace case1 sur case2 et les fusionne sur case2
-	 */
-	friend bool operator>(Case2048 & case1, Case2048 & case2)
-	{
-		case2.valeur+=case1.valeur;
-		case1.valeur=0;
 
-		return true;
-	}
 };
 
 #endif /* CASE2048_HPP_ */

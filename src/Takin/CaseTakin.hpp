@@ -19,12 +19,16 @@ public:
 	T valeur;
 	bool EmptyCase;
 
+	virtual bool operator==( CaseGeneric& case2){
+			return false;
+		}
+
     virtual void Print(std::ostream& O) const
     {
         O << valeur << " ";
     }
     CaseTakin(int _i, int _j) :
-        CaseGeneric(_i, _j), valeur(0),EmptyCase(false)
+        CaseGeneric(_i, _j,false), valeur(0),EmptyCase(false)
     {
         //std::cout << "appel constructeur CaseTakin : "<<i<<" "<<j << std::endl;
 

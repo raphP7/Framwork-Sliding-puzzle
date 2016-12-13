@@ -13,19 +13,28 @@ Plateau2048::Plateau2048(int sizeI, int sizeJ) :
 	recursive = false;
 }
 
-bool Plateau2048::isFusionnable(Case2048 const& case1, Case2048 const& case2) {
-	return operator==(case1, case2);
+bool Plateau2048::isFusionnable(Case2048 * case1, Case2048 * case2)const {
+	return *case1==*case2 || *case2==*case1;
 }
 
 bool Plateau2048::isCaseEmpty(Case2048 const& case1) {
 	return case1.valeur == 0;
 }
 
-void Plateau2048::applyFusion(Case2048 & case1, Case2048 & case2) {
-	case1 > case2;
+bool Plateau2048::applyFusion(Case2048 & case1, Case2048 & case2) {
+	stringstream ss;
+	ss<<"fusion de "<<case1.i<<" "<<case1.j<<" dans "<<case2.i<<" "<<case2.j;
+	if(case1 > case2){
+		cout<<ss.str()<<" DEPUIS case1"<<endl;
+		return true;
+	}else if(case1 <case2){
 
-	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" dans "<<case2->i<<" "<<case2->j<<endl;
-
+		cout<<ss.str()<<" DEPUIS case2"<<endl;
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 void Plateau2048::performAction() {
 
@@ -52,35 +61,21 @@ void Plateau2048::performAction() {
 }
 
 void Plateau2048::addNewValue() {
-	iterDoubleVector<Case2048> monIter(this->plateau);
 
-	//list all the empty cases
-	vector<Case2048*> vecFreeCase;
-	Case2048 * tmp;
-	while (monIter.hasnext()) {
-		tmp = monIter.next();
-		if (tmp->valeur == 0) {
-			vecFreeCase.push_back(tmp);
-		}
-	}
-	int sizeMax = vecFreeCase.size();
+	Case2048 * tmp=this->getRandomEmptyCase();
 
-	if (sizeMax == 0) {
-		return;
-	}
 	//select by random the case with a new value
 	random_device seeder;
 	mt19937 engine(seeder());
-	uniform_int_distribution<int> dist(0, sizeMax - 1);
-	int randomPosition = dist(engine);
 
 	//10 % chance of add a 4
 	uniform_int_distribution<int> dist2(0, 10);
 	int random2or4 = dist2(engine);
+	tmp->empty=false;
 	if (random2or4 > 8) {
-		vecFreeCase[randomPosition]->valeur = 4;
+		tmp->valeur = 4;
 	} else {
-		vecFreeCase[randomPosition]->valeur = 2;
+		tmp->valeur = 2;
 	}
 
 }
