@@ -7,8 +7,8 @@
 
 #include "Case2048.hpp"
 
-Case2048::Case2048(int _i, int _j) :
-		CaseGeneric(_i, _j,true), valeur(0) {
+Case2048::Case2048(int _i, int _j,bool empty) :
+		CaseGeneric(_i, _j,empty), valeur(0) {
 
 	//std::cout << "appel constructeur Case2048 : "<<i<<" "<<j << std::endl;
 

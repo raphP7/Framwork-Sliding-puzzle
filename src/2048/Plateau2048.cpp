@@ -14,27 +14,16 @@ Plateau2048::Plateau2048(int sizeI, int sizeJ) :
 }
 
 bool Plateau2048::isFusionnable(Case2048 * case1, Case2048 * case2)const {
-	return *case1==*case2 || *case2==*case1;
+	return case1->FusionWith(*case2,true);
 }
 
-bool Plateau2048::isCaseEmpty(Case2048 const& case1) {
-	return case1.valeur == 0;
+bool Plateau2048::isCaseEmpty(Case2048 const* case1) {
+	return case1->empty;
 }
 
-bool Plateau2048::applyFusion(Case2048 & case1, Case2048 & case2) {
-	stringstream ss;
-	ss<<"fusion de "<<case1.i<<" "<<case1.j<<" dans "<<case2.i<<" "<<case2.j;
-	if(case1 > case2){
-		cout<<ss.str()<<" DEPUIS case1"<<endl;
-		return true;
-	}else if(case1 <case2){
-
-		cout<<ss.str()<<" DEPUIS case2"<<endl;
-		return true;
-	}
-	else{
-		return false;
-	}
+void Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2) {
+	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
+	case1->FusionWith(*case2,false);
 }
 void Plateau2048::performAction() {
 
@@ -77,6 +66,7 @@ void Plateau2048::addNewValue() {
 	} else {
 		tmp->valeur = 2;
 	}
+	cout<<"nouvelle valeur : "<<tmp->valeur<< " Position x:"<<tmp->i<<"|y:"<<tmp->j<<endl;
 
 }
 

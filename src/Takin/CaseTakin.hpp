@@ -19,9 +19,13 @@ public:
 	T valeur;
 	bool EmptyCase;
 
-	virtual bool operator==( CaseGeneric& case2){
-			return false;
-		}
+	virtual bool FusionWith(CaseGeneric & case2,bool justTest){
+		return true;
+	}
+
+	virtual bool operator==(CaseGeneric& case2){
+		return false;
+	}
 
     virtual void Print(std::ostream& O) const
     {

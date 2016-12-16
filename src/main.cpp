@@ -3,6 +3,7 @@
 #include"2048/Plateau2048.hpp"
 #include"2048/Case2048Destroy/Case2048Destroy.hpp"
 #include"Takin/PlateauTakin.hpp"
+#include <memory>
 
 void takin(){
 
@@ -20,23 +21,25 @@ void play2048(){
 	Plateau2048 pl2048(3,3);
 	pl2048.initPlateau();
 	pl2048.setModeJeux(true);
-/*
+
 	Case2048Destroy *a = new Case2048Destroy(0,0);
 		a->valeur=9;
 
+	CaseGeneric * tmp=pl2048.plateau[0][0];
 	pl2048.plateau[0][0]=a;
+	delete tmp;
 
-	pl2048.plateau[1][0]->valeur=12;
-
-	pl2048.affiche();
-
-	pl2048.doDirectionalSWIPE('i',false);
-
-	pl2048.affiche();
-
-*/
+	//pl2048.plateau[1][0]->valeur=12;
+	pl2048.plateau[0][1]->empty=false;
+	pl2048.plateau[0][1]->valeur=2;
 	pl2048.startGame();
 }
+
+const Case2048 Case2048::operator+(const Case2048 &other) const {
+	Case2048 result = *this;     // Make a copy of myself.  Same as MyClass result(*this);
+    result.valeur+=other.valeur;
+    return result;              // All done!
+  }
 
 int main() {
     std::cout<<"bonjour2"<<std::endl;
@@ -48,7 +51,63 @@ int main() {
         }
     };
 
-    play2048();
+    class Casemystere:public Case2048Destroy{
+    	public:
+    	Casemystere(int t , int v):Case2048Destroy(t,v){
+
+    	}
+		virtual bool isFusionnableWith(CaseGeneric & case2) {
+
+
+		}
+
+    };
+
+    //play2048();
+
+
+    Case2048 * a =new Case2048(3,4);
+    a->valeur=10;
+    Case2048 * aa =new Case2048(3,4);
+    aa->valeur=20;
+    CaseGeneric * b =new Case2048Destroy(3,6);
+    CaseGeneric * bb =new Case2048Destroy(3,6);
+
+    std::cout<<"passage au V"<<endl;
+
+    Case2048  c = (*a)+(*aa);
+
+    std::vector<std::shared_ptr<CaseGeneric> > v;
+
+
+    v.push_back(std::shared_ptr<CaseGeneric>(new Case2048(3,4,true)));
+
+    v.push_back(std::shared_ptr<CaseGeneric>(new Case2048Destroy(3,4)));
+
+    for (auto it : v) {
+
+
+    }
+
+
+
+    //(*a)>(*b);
+
+    a->FusionWith(*b,true);
+    bb->FusionWith(*a,true);
+    bb->FusionWith(*b,true);
+
+
+
+
+    //play2048();
+    //a->fusion(a);
+
+
+    //Case2048 * a =new CaseGe(3,4,true);
+
+
+
     //FramPlateauLand<int>* fr; //INTERDIT
 
     //FramPlateauLand<mama>* fr;

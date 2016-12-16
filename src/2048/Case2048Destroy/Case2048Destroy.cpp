@@ -8,7 +8,7 @@
 #include "Case2048Destroy.hpp"
 
 Case2048Destroy::Case2048Destroy(int _i, int _j) :
-	Case2048(_i, _j) {
+	Case2048(_i, _j,false) {
 
 	//std::cout << "appel constructeur Case2048 : "<<i<<" "<<j << std::endl;
 

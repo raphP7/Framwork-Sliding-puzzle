@@ -85,15 +85,14 @@ public:
     	return false;
     }
 
-    virtual bool isCaseEmpty(T const& case1){
+    virtual bool isCaseEmpty(T const* case1){
     	//TODO EXCEPTION
     	cerr<<"PAS BON isCaseEmpty"<<endl;
     	return false;
     }
-    virtual bool applyFusion(T & case1,T & case2){
+    virtual void applyFusion(T * case1,T * case2){
     	//TODO EXCEPTION
     	cerr<<"PAS BON applyFusion"<<endl;
-    	return false;
     }
 
     virtual void performAction(){
@@ -119,28 +118,42 @@ public:
     bool doDirectionalSWIPE(char direction,bool recursive,bool justTest=false){
 
     	bool onMoveDone=false;
-    	//DROITE
+    	int LimiteJ;
+    	int LimiteI;
 
+    	//DROITE
     	if(direction=='l'){
+
     		for(int i=0; i < PlateauSizeI;i++){
-				for(int j=PlateauSizeJ-1;j>-1;j--){
+
+    			LimiteJ=PlateauSizeJ-1;
+
+				for(int j=LimiteJ-1;j>-1;j--){
 					bool canMove=true;
-					size_t tmpJ=j;
+					int tmpJ=j;
 					//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
 
 					do{
 						//cout<<"DANS BOUCLE"<<endl;
 						//cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
 
-						if(tmpJ+1==plateau.size()){//limite a droite
+						if(tmpJ>=LimiteJ){//limite a droite
 							canMove=false;
 						}else{
-							if(isCaseEmpty(*plateau[i][tmpJ])){//case vide , ne ce deplace pas
+							if(isCaseEmpty(plateau[i][tmpJ])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
 							else if(isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ+1])){
 								if(!justTest){
-									applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ+1]);
+									if(!isCaseEmpty(plateau[i][tmpJ+1])){//&&recursive
+										/*
+										 * Dans le cadre de la fusion Si la deuxieme case n'est pas vide
+										 * alors c'est la nouvelle borne dans le cas NON recursif
+										 */
+										LimiteJ--;
+									}
+									applyFusion(plateau[i][tmpJ],plateau[i][tmpJ+1]);
+
 								}else{
 									return true;
 								}
@@ -158,21 +171,26 @@ public:
     	//GAUCHE
     	else if(direction=='j'){
     		for(int i=0; i < PlateauSizeI;i++){
-				for(int j=0;j<PlateauSizeJ;j++){
+
+    			LimiteJ=0;
+				for(int j=LimiteJ+1;j<PlateauSizeJ;j++){
 					bool canMove=true;
 					int tmpJ=j;
 
 					do{
 
-						if(tmpJ-1==-1){//limite a GAUCHE
+						if(tmpJ<=LimiteJ){//limite a GAUCHE
 							canMove=false;
 						}else{
-							if(isCaseEmpty(*plateau[i][tmpJ])){//case vide , ne ce deplace pas
+							if(isCaseEmpty(plateau[i][tmpJ])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
 							else if(isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ-1])){
 								if(!justTest){
-									applyFusion(*plateau[i][tmpJ],*plateau[i][tmpJ-1]);
+									if (!isCaseEmpty(plateau[i][tmpJ-1])) {//&&recursive
+										LimiteJ++;
+									}
+									applyFusion(plateau[i][tmpJ],plateau[i][tmpJ-1]);
 								}
 								else {
 									return true;
@@ -191,21 +209,24 @@ public:
     	//HAUT
     	}else if(direction=='i'){
     		for(int j=0; j < PlateauSizeJ;j++){
-				for(int i=0;i<PlateauSizeI;i++){
+    			LimiteI=0;
+				for(int i=LimiteI+1;i<PlateauSizeI;i++){
 					bool canMove=true;
 					int tmpI=i;
 					do{
 
-						if(tmpI-1==-1){//limite en haut
+						if(tmpI<=LimiteI){//limite en haut
 							canMove=false;
 						}else{
-							if(isCaseEmpty(*plateau[tmpI][j])){//case vide , ne ce deplace pas
+							if(isCaseEmpty(plateau[tmpI][j])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
 							else if(isFusionnable(plateau[tmpI][j],plateau[tmpI-1][j])){
 								if (!justTest) {
-									applyFusion(*plateau[tmpI][j],*plateau[tmpI-1][j]);
-
+									if (!isCaseEmpty(plateau[tmpI-1][j])) {//&&recursive
+										LimiteI++;
+									}
+									applyFusion(plateau[tmpI][j],plateau[tmpI-1][j]);
 								} else {
 									return true;
 								}
@@ -223,23 +244,27 @@ public:
     	//BAS
     	}else if(direction=='k'){
     		for(int j=0; j < PlateauSizeJ;j++){
-				for(int i=PlateauSizeI-1;i>-1;i--){
+    			LimiteI=PlateauSizeI-1;
+				for(int i=LimiteI-1;i>-1;i--){
 					bool canMove=true;
-					size_t tmpI=i;
+					int tmpI=i;
 
 					do{
 
-						if(tmpI==plateau.size()-1){//limite en bas
+						if(tmpI>=LimiteI){//limite en bas
 							canMove=false;
 						}else{
-							if(isCaseEmpty(*plateau[tmpI][j])){//case vide , ne ce deplace pas
+							if(isCaseEmpty(plateau[tmpI][j])){//case vide , ne ce deplace pas
 								canMove=false;
 							}
 							else if(isFusionnable(plateau[tmpI][j],plateau[tmpI+1][j])){
 
 								if (!justTest) {
-									applyFusion(*plateau[tmpI][j],*plateau[tmpI+1][j]);
+									if (!isCaseEmpty(plateau[tmpI+1][j])) {//&&recursive
+										LimiteI--;
+									}
 
+									applyFusion(plateau[tmpI][j],plateau[tmpI+1][j]);
 								} else {
 									return true;
 								}
