@@ -3,9 +3,24 @@
 #include"2048/Plateau2048.hpp"
 #include"2048/Case2048Destroy/Case2048Destroy.hpp"
 #include"Takin/PlateauTakin.hpp"
+#include"Sokoban/PlateauSokoban.hpp"
 #include <memory>
 
-void takin(){
+void playSokoban(){
+
+	PlateauSokoban<int> pTakinInt(5,5,1);
+    vector<int> v { 1,1,1,1,1,
+    				1,0,0,0,1,
+					1,2,3,0,1,
+					1,0,0,0,1,
+					1,1,1,1,1,
+    				};
+    pTakinInt.initPlateau(v);
+    pTakinInt.setModeJeux(true);
+    pTakinInt.startGame();
+}
+
+void playTakin(){
 
 	PlateauTakin<int> pTakinInt(2,2);
     vector<int> v { 2,7,0,10 };
@@ -21,7 +36,7 @@ void play2048(){
 	Plateau2048 pl2048(3,3);
 	pl2048.initPlateau();
 	pl2048.setModeJeux(true);
-
+	/*
 	Case2048Destroy *a = new Case2048Destroy(0,0);
 		a->valeur=9;
 
@@ -32,6 +47,8 @@ void play2048(){
 	//pl2048.plateau[1][0]->valeur=12;
 	pl2048.plateau[0][1]->empty=false;
 	pl2048.plateau[0][1]->valeur=2;
+
+	*/
 	pl2048.startGame();
 }
 
@@ -62,9 +79,11 @@ int main() {
 		}
 
     };
-
+    //playTakin();
+    playSokoban();
     //play2048();
 
+/*
 
     Case2048 * a =new Case2048(3,4);
     a->valeur=10;
@@ -91,13 +110,14 @@ int main() {
 
 
 
+
     //(*a)>(*b);
 
     a->FusionWith(*b,true);
     bb->FusionWith(*a,true);
     bb->FusionWith(*b,true);
 
-
+*/
 
 
     //play2048();

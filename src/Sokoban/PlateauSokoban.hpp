@@ -1,79 +1,34 @@
 /*
- * PlateauTakin.hpp
+ * PlateauSokoban.hpp
  *
  *  Created on: 1 déc. 2016
  *      Author: raphael
  */
 
-#ifndef PLATEAUTakin_HPP_
-#define PLATEAUTakin_HPP_
-#include "CaseTakin.hpp"
+#ifndef PLATEAUTsokoban_HPP_
+#define PLATEAUTsokoban_HPP_
+#include "CaseSokoban.hpp"
 #include "../FramPlateauLand.hpp"
 
 
-template<class T>class PlateauTakin: public FramPlateauLand<CaseTakin <T> >
+template<class T>class PlateauSokoban: public FramPlateauLand<CaseSokoban <T> >
 {
 
 public:
 
-    PlateauTakin(int sizeI, int sizeJ):FramPlateauLand<CaseTakin<T> >(sizeI, sizeJ),
-    		AlreadySetBlankCase(false),BlankCaseAtTheEnd(false){}
+    PlateauSokoban(int sizeI, int sizeJ,int nbCases):FramPlateauLand<CaseSokoban<T> >(sizeI, sizeJ),nbCases(nbCases){}
 
-    virtual ~PlateauTakin(){}
+    virtual ~PlateauSokoban(){}
 
     virtual void initPlateau(vector<T> contenuJeu){
-
     	this->applyInitPlateau(contenuJeu);
-
     }
 
-    void setBlank(int i,int j){
-    	if(!AlreadySetBlankCase){
-    		this->plateau[i][j]->EmptyCase=true;
-    		AlreadySetBlankCase=true;
-    	}
-    }
-    void setBlankCaseAtTheEnd(){
-    	BlankCaseAtTheEnd=true;
-    }
 private:
 
-	bool AlreadySetBlankCase;
-	bool BlankCaseAtTheEnd;
+    int nbCases;
 
-    virtual bool gameEnd(){
-
-    	iterDoubleVector< CaseTakin<T > > monIter(this->plateau);
-    	CaseTakin<T> *tmpBefore;
-    	CaseTakin<T> *tmpActual;
-
-    	if(monIter.hasnext()){
-    		tmpBefore=monIter.next();
-    	}
-    	while(monIter.hasnext()){
-
-    		tmpActual=monIter.next();
-
-    		if(BlankCaseAtTheEnd){
-				if(!monIter.hasnext()){
-					//last
-					if(tmpActual->EmptyCase){
-						return true;
-					}else{
-						return false;
-					}
-				}
-    		}
-
-    		if(*tmpBefore<*tmpActual){
-    			tmpBefore=tmpActual;
-    		}else{
-    			return false;
-    		}
-    	}
-    	return true;
-
-    }
+    virtual bool gameEnd();
 
     virtual void performAction(){
 
@@ -111,6 +66,10 @@ private:
         delete commande;
     }
 
+
+
 };
 
-#endif /* PLATEAUTakin_HPP_ */
+#include "PlateauSokoban.tpp"
+
+#endif /* PLATEAUTsokoban_HPP_ */
