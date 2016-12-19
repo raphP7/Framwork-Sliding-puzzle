@@ -24,7 +24,7 @@ public:
 	virtual bool isCaseEmpty(Case2048 const* case1);
 	virtual void applyFusion(Case2048 * case1, Case2048 * case2);
 
-	virtual void performAction();
+	virtual bool performAction(int xArriv=0,int yArriv=0);
 
 	virtual void addNewValue();
 
@@ -48,5 +48,7 @@ public:
 	}
 
 };
+
+
 
 #endif /* PLATEAU2048_HPP_ */

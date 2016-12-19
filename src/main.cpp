@@ -44,9 +44,9 @@ void playTakinChar(){
 
 void play2048(){
 
-	Plateau2048 pl2048(3,3);
+	Plateau2048 pl2048(5,5);
 	pl2048.initPlateau();
-	pl2048.setModeJeux(true);
+	pl2048.setModeJeux(false);
 	/*
 	Case2048Destroy *a = new Case2048Destroy(0,0);
 		a->valeur=9;

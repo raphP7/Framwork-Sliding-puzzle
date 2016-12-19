@@ -9,7 +9,7 @@
 #include "Case2048.hpp"
 
 Plateau2048::Plateau2048(int sizeI, int sizeJ) :
-		FramPlateauLand<Case2048>(sizeI, sizeJ) {
+		FramPlateauLand<Case2048>(sizeI, sizeJ,false) {
 	recursive = false;
 }
 
@@ -25,28 +25,29 @@ void Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2) {
 	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
 	case1->FusionWith(*case2,false);
 }
-void Plateau2048::performAction() {
+bool Plateau2048::performAction(int xArriv,int yArriv){
 
 	char *commande = new char();
 	bool Notdone = true;
 	while (Notdone) {
-		this->getInputDirectionFromConsole(commande);
 
-		if (*commande == 'i' || *commande == 'j' || *commande == 'k'
-				|| *commande == 'l') {
-			if (doDirectionalSWIPE(*commande, recursive)) {
-				Notdone = false;
-			} else {
+		if(modeJoeur){
+			this->getInputDirectionFromConsole(commande);
+		}else{
+			*commande=this->getRandomDirection();
+			//cout<<"direction choisi : "<<*commande<<endl;
+		}
+		if (doDirectionalSWIPE(*commande, recursive)) {
+			Notdone = false;
+		} else {
+			if(modeJoeur){
 				cout << "MOUVEMENT INEFICASSE" << endl;
 			}
-
-		} else {
-			cout << "BAD INPUT , i -> UP | j -> LEFT | k -> DOWN | l -> RIGHT"
-					<< endl;
 		}
 	}
-	delete commande;
 	addNewValue();
+	delete commande;
+	return true;
 }
 
 void Plateau2048::addNewValue() {

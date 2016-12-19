@@ -62,17 +62,13 @@ protected:
 	vector<vector<T*> >plateau;
 	int speedGame;
 	bool modeJoeur;// si TRUE -> utlisateur | FALSE -> automatique
+	bool isJeuxPersonnage; // si TRUE -> mode case qui se deplace | FALSE -> jeux autre ( exemple 2048 )
 
 public:
     void startGame();
 
     virtual bool gameEnd()=0;
-    /*{
-    	//TODO EXCEPTION
-    	cerr<<"PAS BON"<<endl;
-    	return false;
-    }
-*/
+
     virtual bool isFusionnable(T * case1,T * case2)const{
     	//TODO EXCEPTION
     	cerr<<"PAS BON isFusionnable"<<endl;
@@ -89,10 +85,8 @@ public:
     	cerr<<"PAS BON applyFusion"<<endl;
     }
 
-    virtual void performAction(){
-    	//TODO EXCEPTION
-        cerr<<"PAS BON performAction"<<endl;
-    }
+    virtual bool performAction(int xArriv=0,int yArriv=0)=0;
+
 
     virtual void initPlateau(vector<T> contenuJeu){
     	//TODO EXCEPTION
@@ -114,10 +108,9 @@ public:
 			string const& message1 = string(), string const& message2 =
 					string());
 
-    void getInputDirectionFromConsole(char * input){
-			cout<<"Entre une direction i|j|k|l :";
-			cin>>input;
-    }
+	void getInputDirectionFromConsole(char * input);
+
+	bool testArrivalPositionForPersonnage(int  xArriv, int  yArriv);
 
     char* getCommandeFromConsole(int nbCommandes);
 
@@ -135,7 +128,7 @@ public:
     //FramPlateauLand(int sizeI, int sizeJ);
 
 
-    FramPlateauLand(int sizeI, int sizeJ);
+    FramPlateauLand(int sizeI, int sizeJ,bool _isJeuxPersonnage);
 
     void affiche();
 

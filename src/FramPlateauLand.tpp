@@ -8,8 +8,39 @@
 template<class T> void FramPlateauLand<T>::startGame() {
 	this->affiche();
 	do {
-		this->performAction();
+
+		if (isJeuxPersonnage) {
+
+			bool moveNotDone = true;
+			char *commande = new char();
+			int xArriv = -1;
+			int yArriv = -1;
+
+			while (moveNotDone) {
+				if (this->modeJoeur) {
+					this->getInputDirectionFromConsole(commande);
+				} else {
+					*commande = this->getRandomDirection();
+					cout << "direction choisi : " << *commande << endl;
+				}
+				this->getPositionFromDirectionPersonnage(&xArriv, &yArriv,
+						*commande);
+
+				if (this->testArrivalPositionForPersonnage(xArriv, yArriv)) {
+
+					if(this->performAction(xArriv, yArriv)){
+						moveNotDone = false;
+					}
+				}
+			}
+			delete commande;
+
+
+		}else{
+			this->performAction();
+		}
 		this->affiche();
+
 	} while (!this->gameEnd());
 	cout << "JEUX FINI" << endl;
 }
@@ -19,6 +50,22 @@ template<class T> void FramPlateauLand<T>::doSwap(int i2,int j2){
     T* tmp=plateau[PositionXPersonnage][PositionYPersonnage];
     plateau[PositionXPersonnage][PositionYPersonnage]=plateau[i2][j2];
     plateau[i2][j2]=tmp;
+
+}
+
+template<class T> void FramPlateauLand<T>::getInputDirectionFromConsole(char * input) {
+	bool notGoodValue = true;
+	while (notGoodValue) {
+		cout << "Entre une direction i|j|k|l :";
+		cin >> input;
+		if (*input == 'i' || *input == 'j' || *input == 'k'
+				|| *input == 'l') {
+			cout<< "BAD INPUT , i -> UP | j -> LEFT | k -> DOWN | l -> RIGHT"<< endl;
+		}
+		else{
+			notGoodValue=false;
+		}
+	}
 
 }
 
@@ -46,6 +93,24 @@ template<class T> void FramPlateauLand<T>::getPositionFromDirectionPersonnage(
 		cout << "Bad input" << endl;
 	}
 
+}
+
+template<class T> bool FramPlateauLand<T>::testArrivalPositionForPersonnage(
+		int xArriv, int yArriv) {
+
+	int sizeMaxI = this->plateau.size() - 1;
+	int sizeMaxJ = this->plateau[0].size() - 1;
+
+	//hors du terrain
+	if (xArriv < 0 || yArriv < 0 || xArriv > sizeMaxI || yArriv > sizeMaxJ) {
+		if (this->modeJoeur) {
+			cout << "valeur INCORRECT ou Mouvement Interdit\n" << endl;
+
+		}
+		return false;
+	}else {
+		return true;
+	}
 }
 
 template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,bool recursive,bool justTest){
@@ -305,7 +370,7 @@ template<class T> char* FramPlateauLand<T>:: getCommandeFromConsole(int nbComman
     }
 
 
-template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ):PositionXPersonnage(-1),PositionYPersonnage(-1)
+template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ,bool _isJeuxPersonnage):PositionXPersonnage(-1),PositionYPersonnage(-1)
     {
 
         static_assert(std::is_base_of< CaseGeneric, T>::value, "wrong type");
@@ -322,9 +387,9 @@ template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ):Posi
         }
         speedGame=1;
         modeJoeur=true;
+        isJeuxPersonnage=_isJeuxPersonnage;
         PlateauSizeI=sizeI;
         PlateauSizeJ=sizeJ;
-
     }
 
 template<class T> void FramPlateauLand<T>::affiche()
