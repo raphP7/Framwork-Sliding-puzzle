@@ -10,27 +10,26 @@
 #include "CaseTakin.hpp"
 #include "../FramPlateauLand.hpp"
 
-template<class T>class PlateauTakin: public FramPlateauLand<CaseTakin <T> >
-{
+template<class T> class PlateauTakin: public FramPlateauLand<CaseTakin<T> > {
 
 public:
 
-    PlateauTakin(int sizeI, int sizeJ);
+	PlateauTakin(int sizeI, int sizeJ);
 
-    virtual ~PlateauTakin();
+	virtual ~PlateauTakin();
 
-    virtual void initPlateau(vector<T> contenuJeu);
+	virtual void initPlateau(vector<T> contenuJeu);
 
-    void setBlank(int i,int j);
+	void setBlank(int i, int j);
 
-    void setBlankCaseAtTheEnd();
+	void setBlankCaseAtTheEnd();
 private:
 
 	bool AlreadySetBlankCase;
 	bool BlankCaseAtTheEnd;
 
-    virtual bool gameEnd();
-	virtual bool performAction(int xArriv, int yArriv);
+	virtual bool gameEnd();
+	virtual bool performAction(int xArriv, int yArriv,char direction);
 };
 
 #include "PlateauTakin.tpp"

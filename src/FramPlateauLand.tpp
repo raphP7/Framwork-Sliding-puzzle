@@ -12,28 +12,28 @@ template<class T> void FramPlateauLand<T>::startGame() {
 		if (isJeuxPersonnage) {
 
 			bool moveNotDone = true;
-			char *commande = new char();
+			char *direction = new char();
 			int xArriv = -1;
 			int yArriv = -1;
 
 			while (moveNotDone) {
 				if (this->modeJoeur) {
-					this->getInputDirectionFromConsole(commande);
+					this->getInputDirectionFromConsole(direction);
 				} else {
-					*commande = this->getRandomDirection();
-					cout << "direction choisi : " << *commande << endl;
+					*direction = this->getRandomDirection();
+					cout << "direction choisi : " << *direction << endl;
 				}
-				this->getPositionFromDirectionPersonnage(&xArriv, &yArriv,
-						*commande);
+				this->getArrival_from_Direction_of_Personnage(&xArriv, &yArriv,
+						*direction);
 
 				if (this->testArrivalPositionForPersonnage(xArriv, yArriv)) {
 
-					if(this->performAction(xArriv, yArriv)){
+					if(this->performAction(xArriv, yArriv,*direction)){
 						moveNotDone = false;
 					}
 				}
 			}
-			delete commande;
+			delete direction;
 
 
 		}else{
@@ -60,38 +60,46 @@ template<class T> void FramPlateauLand<T>::getInputDirectionFromConsole(char * i
 		cin >> input;
 		if (*input == 'i' || *input == 'j' || *input == 'k'
 				|| *input == 'l') {
-			cout<< "BAD INPUT , i -> UP | j -> LEFT | k -> DOWN | l -> RIGHT"<< endl;
+			notGoodValue=false;
 		}
 		else{
-			notGoodValue=false;
+			cout<< "BAD INPUT , i -> UP | j -> LEFT | k -> DOWN | l -> RIGHT"<< endl;
+
 		}
 	}
 
 }
 
-template<class T> void FramPlateauLand<T>::getPositionFromDirectionPersonnage(
-		int * xArriv, int * yArriv, char direction) {
+template<class T> void FramPlateauLand<T>::getArrival_from_Position_and_Direction(int xStart, int yStart,char direction,
+		int * xArriv, int * yArriv) {
 
 	if (direction == 'i') {
 
-		*xArriv = (this->PositionXPersonnage) - 1;
-		*yArriv = this->PositionYPersonnage;
+		*xArriv = xStart - 1;
+		*yArriv = yStart;
 
 	} else if (direction == 'j') {
-		*xArriv = this->PositionXPersonnage;
-		*yArriv = (this->PositionYPersonnage) - 1;
+		*xArriv = xStart;
+		*yArriv = yStart - 1;
 
 	} else if (direction == 'k') {
-		*xArriv = (this->PositionXPersonnage) + 1;
-		*yArriv = this->PositionYPersonnage;
+		*xArriv = xStart + 1;
+		*yArriv = yStart;
 
 	} else if (direction == 'l') {
-		*xArriv = this->PositionXPersonnage;
-		*yArriv = (this->PositionYPersonnage) + 1;
+		*xArriv = xStart;
+		*yArriv = yStart + 1;
 
 	} else {
 		cout << "Bad input" << endl;
 	}
+
+}
+
+template<class T> void FramPlateauLand<T>::getArrival_from_Direction_of_Personnage(
+		int * xArriv, int * yArriv, char direction) {
+
+	getArrival_from_Position_and_Direction(this->PositionXPersonnage,this->PositionYPersonnage,direction,xArriv,yArriv);
 
 }
 

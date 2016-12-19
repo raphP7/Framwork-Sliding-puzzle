@@ -38,7 +38,7 @@ void playTakinChar(){
     pTakinInt.initPlateau(v);
     pTakinInt.setBlank(1,0);
     pTakinInt.setBlankCaseAtTheEnd();
-    pTakinInt.setModeJeux(false);
+    pTakinInt.setModeJeux(true);
     pTakinInt.startGame();
 }
 
@@ -90,8 +90,8 @@ int main() {
 		}
 
     };
-    playTakinChar();
-    //playSokoban();
+    //playTakinChar();
+    playSokoban();
     //play2048();
 
 /*

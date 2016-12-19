@@ -17,38 +17,20 @@ class Plateau2048: public FramPlateauLand<Case2048> {
 
 
 public:
-	Plateau2048(int sizeI, int sizeJ);
 	bool recursive;
+	Plateau2048(int sizeI, int sizeJ);
+	virtual void initPlateau(vector<int> contenuJeu = DEFAULT_VECTOR);
 
+private:
 	virtual bool isFusionnable(Case2048 * case1, Case2048 * case2)const;
 	virtual bool isCaseEmpty(Case2048 const* case1);
 	virtual void applyFusion(Case2048 * case1, Case2048 * case2);
 
-	virtual bool performAction(int xArriv=0,int yArriv=0);
+	virtual bool performAction(int xArriv=0,int yArriv=0,char direction=0);
 
 	virtual void addNewValue();
-
 	virtual bool gameEnd();
-	virtual void initPlateau(vector<int> contenuJeu = DEFAULT_VECTOR) {
-
-		iterDoubleVector<Case2048> monIter(this->plateau);
-
-		//for good random
-		random_device seeder;
-		mt19937 engine(seeder());
-		uniform_int_distribution<int> dist(0, monIter.getSizeMax() - 1);
-		int randomPosition = dist(engine);
-
-		int i = randomPosition / plateau.size();
-		int j = randomPosition % plateau.size();
-
-		plateau[i][j]->valeur = 2;
-		plateau[i][j]->empty = false;
-
-	}
 
 };
-
-
 
 #endif /* PLATEAU2048_HPP_ */

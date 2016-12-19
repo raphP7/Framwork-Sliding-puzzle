@@ -25,7 +25,7 @@ void Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2) {
 	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
 	case1->FusionWith(*case2,false);
 }
-bool Plateau2048::performAction(int xArriv,int yArriv){
+bool Plateau2048::performAction(int xArriv,int yArriv,char direction){
 
 	char *commande = new char();
 	bool Notdone = true;
@@ -70,6 +70,24 @@ void Plateau2048::addNewValue() {
 	cout<<"nouvelle valeur : "<<tmp->valeur<< " Position x:"<<tmp->i<<"|y:"<<tmp->j<<endl;
 
 }
+
+void Plateau2048::initPlateau(vector<int> contenuJeu) {
+
+		iterDoubleVector<Case2048> monIter(this->plateau);
+
+		//for good random
+		random_device seeder;
+		mt19937 engine(seeder());
+		uniform_int_distribution<int> dist(0, monIter.getSizeMax() - 1);
+		int randomPosition = dist(engine);
+
+		int i = randomPosition / plateau.size();
+		int j = randomPosition % plateau.size();
+
+		plateau[i][j]->valeur = 2;
+		plateau[i][j]->empty = false;
+
+	}
 
 bool Plateau2048::gameEnd() {
 	/*

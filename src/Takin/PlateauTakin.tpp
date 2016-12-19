@@ -67,7 +67,7 @@ template<class T> bool PlateauTakin<T>::gameEnd() {
 
 }
 
-template<class T> bool PlateauTakin<T>::performAction(int xArriv, int yArriv) {
+template<class T> bool PlateauTakin<T>::performAction(int xArriv, int yArriv,char direction) {
 
 	this->doSwap(xArriv, yArriv);
 	this->PositionXPersonnage = xArriv;

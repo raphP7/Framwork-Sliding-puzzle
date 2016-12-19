@@ -85,7 +85,7 @@ public:
     	cerr<<"PAS BON applyFusion"<<endl;
     }
 
-    virtual bool performAction(int xArriv=0,int yArriv=0)=0;
+    virtual bool performAction(int xArriv=0,int yArriv=0,char direction=0)=0;
 
 
     virtual void initPlateau(vector<T> contenuJeu){
@@ -95,7 +95,10 @@ public:
 
     void doSwap(int i2,int j2);
 
-    void getPositionFromDirectionPersonnage(int * xArriv , int * yArriv,char direction);
+    void getArrival_from_Position_and_Direction(int xStart, int yStart, char direction,
+    		int * xArriv, int * yArriv);
+
+    void getArrival_from_Direction_of_Personnage(int * xArriv , int * yArriv,char direction);
 
     bool doDirectionalSWIPE(char direction,bool recursive,bool justTest=false);
 
