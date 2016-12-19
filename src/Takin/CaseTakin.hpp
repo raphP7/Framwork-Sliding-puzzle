@@ -19,6 +19,10 @@ public:
 	T valeur;
 	bool EmptyCase;
 
+	CaseTakin(int _i, int _j);
+
+	virtual ~CaseTakin();
+
 	virtual bool FusionWith(CaseGeneric & case2,bool justTest){
 		return true;
 	}
@@ -31,16 +35,7 @@ public:
     {
         O << valeur << " ";
     }
-    CaseTakin(int _i, int _j) :
-        CaseGeneric(_i, _j,false), valeur(0),EmptyCase(false)
-    {
-        //std::cout << "appel constructeur CaseTakin : "<<i<<" "<<j << std::endl;
 
-    }
-    ~CaseTakin()
-    {
-        //std::cout<<"delete Takin de "<<i<<" "<<j<<std::endl;
-    }
 
     bool getEmptyCase(){
     	return EmptyCase;
@@ -55,5 +50,6 @@ public:
     }
 };
 
+#include "CaseTakin.tpp"
 
 #endif /* CASETakin_HPP_ */

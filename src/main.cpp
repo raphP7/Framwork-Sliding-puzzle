@@ -20,7 +20,7 @@ void playSokoban(){
     pSokoban.startGame();
 }
 
-void playTakin(){
+void playTakinInt(){
 
 	PlateauTakin<int> pTakinInt(2,2);
     vector<int> v { 2,7,0,10 };
@@ -28,6 +28,17 @@ void playTakin(){
     pTakinInt.setBlank(1,0);
     pTakinInt.setBlankCaseAtTheEnd();
     pTakinInt.setModeJeux(true);
+    pTakinInt.startGame();
+}
+
+void playTakinChar(){
+
+	PlateauTakin<char> pTakinInt(2,2);
+    vector<char> v { 'a','b',' ','d' };
+    pTakinInt.initPlateau(v);
+    pTakinInt.setBlank(1,0);
+    pTakinInt.setBlankCaseAtTheEnd();
+    pTakinInt.setModeJeux(false);
     pTakinInt.startGame();
 }
 
@@ -79,8 +90,8 @@ int main() {
 		}
 
     };
-    //playTakin();
-    playSokoban();
+    playTakinChar();
+    //playSokoban();
     //play2048();
 
 /*

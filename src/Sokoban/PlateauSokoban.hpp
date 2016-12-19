@@ -14,7 +14,7 @@ class PlateauSokoban: public FramPlateauLand<CaseSokoban>{
 
 public:
 
-    PlateauSokoban(int sizeI, int sizeJ):FramPlateauLand<CaseSokoban> (sizeI, sizeJ), PositionXPersonnage(-1),PositionYPersonnage(-1){}
+    PlateauSokoban(int sizeI, int sizeJ):FramPlateauLand<CaseSokoban> (sizeI, sizeJ){}
 
     virtual ~PlateauSokoban(){}
 
@@ -53,8 +53,6 @@ public:
 
 private:
 
-    int PositionXPersonnage;
-    int PositionYPersonnage;
 
     virtual bool gameEnd();
 
@@ -89,7 +87,7 @@ private:
         }
         else{
 
-            this->doSwap(i1,j1,i2,j2);
+            //this->doSwap(i1,j1,i2,j2);
         }
         delete commande;
     }

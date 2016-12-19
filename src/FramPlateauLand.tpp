@@ -8,19 +8,43 @@
 template<class T> void FramPlateauLand<T>::startGame() {
 	this->affiche();
 	do {
-		this->do1Round();
+		this->performAction();
 		this->affiche();
 	} while (!this->gameEnd());
-
 	cout << "JEUX FINI" << endl;
+}
+
+template<class T> void FramPlateauLand<T>::doSwap(int i2,int j2){
+
+    T* tmp=plateau[PositionXPersonnage][PositionYPersonnage];
+    plateau[PositionXPersonnage][PositionYPersonnage]=plateau[i2][j2];
+    plateau[i2][j2]=tmp;
 
 }
 
-template<class T> void FramPlateauLand<T>::doSwap(int i1,int j1,int i2,int j2){
+template<class T> void FramPlateauLand<T>::getPositionFromDirectionPersonnage(
+		int * xArriv, int * yArriv, char direction) {
 
-    T* tmp=plateau[i1][j1];
-    plateau[i1][j1]=plateau[i2][j2];
-    plateau[i2][j2]=tmp;
+	if (direction == 'i') {
+
+		*xArriv = (this->PositionXPersonnage) - 1;
+		*yArriv = this->PositionYPersonnage;
+
+	} else if (direction == 'j') {
+		*xArriv = this->PositionXPersonnage;
+		*yArriv = (this->PositionYPersonnage) - 1;
+
+	} else if (direction == 'k') {
+		*xArriv = (this->PositionXPersonnage) + 1;
+		*yArriv = this->PositionYPersonnage;
+
+	} else if (direction == 'l') {
+		*xArriv = this->PositionXPersonnage;
+		*yArriv = (this->PositionYPersonnage) + 1;
+
+	} else {
+		cout << "Bad input" << endl;
+	}
 
 }
 
@@ -195,6 +219,25 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 	return onMoveDone;
 }
 
+template<class T> char FramPlateauLand<T>::getRandomDirection() {
+
+	int sizeMax = 4;
+
+	random_device seeder;
+	mt19937 engine(seeder());
+	uniform_int_distribution<int> dist(0, sizeMax - 1);
+	int randomPosition = dist(engine);
+	if(randomPosition==0){
+		return 'i';
+	}else if(randomPosition==1){
+		return 'j';
+	}else if(randomPosition==2){
+		return 'l';
+	}else{
+		return 'k';
+	}
+}
+
 template<class T> T* FramPlateauLand<T>:: getRandomEmptyCase() {
 	iterDoubleVector<T> monIter(this->plateau);
 
@@ -262,7 +305,7 @@ template<class T> char* FramPlateauLand<T>:: getCommandeFromConsole(int nbComman
     }
 
 
-template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ)
+template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ):PositionXPersonnage(-1),PositionYPersonnage(-1)
     {
 
         static_assert(std::is_base_of< CaseGeneric, T>::value, "wrong type");

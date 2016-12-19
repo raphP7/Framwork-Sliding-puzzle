@@ -31,6 +31,9 @@ public:
     	if(!AlreadySetBlankCase){
     		this->plateau[i][j]->EmptyCase=true;
     		AlreadySetBlankCase=true;
+    		this->PositionXPersonnage=i;
+    		this->PositionYPersonnage=j;
+
     	}
     }
     void setBlankCaseAtTheEnd(){
@@ -75,41 +78,43 @@ private:
 
     }
 
-    virtual void performAction(){
+	virtual void performAction() {
 
-        int *commande = new int[4];
-        this->getInputFromConsole(commande,4,2,"Choisissez X : ","Choisissez Y : ");
+		bool moveNotDone=true;
 
-        int i1=commande[0];
-        int j1=commande[1];
-        int i2=commande[2];
-        int j2=commande[3];
+		char *commande = new char();
 
-        int sizeMaxI=this->plateau.size()-1;
-        int sizeMaxJ=this->plateau[0].size()-1;
-        if(i1<0 || j1<0 || i2<0 || j2<0 ||
-            i1>sizeMaxI || i2>sizeMaxI || j1>sizeMaxJ || j2>sizeMaxJ ||
-            ( i1==i2 && j1==j2) || i1+1<i2 || i2+1<i1 || j1+1<j2 || j2+1<j1||
-            i1>i2+1 || i2>i1+1 || j1>j2+1 || j2>j1+1
+		int xArriv = -1;
+		int yArriv = -1;
 
+		while(moveNotDone){
+			if(this->modeJoeur){
+				this->getInputDirectionFromConsole(commande);
+			}else{
+				*commande=this->getRandomDirection();
+				cout<<"direction choisi : "<<*commande<<endl;
+			}
+			this->getPositionFromDirectionPersonnage(&xArriv, &yArriv, *commande);
 
-            //TODO interdire les mouvements diagonaux
-            ){
-            cerr<<"valeur INCORRECT ou Mouvement Interdit"<<endl;
-        }
+			int sizeMaxI = this->plateau.size() - 1;
+			int sizeMaxJ = this->plateau[0].size() - 1;
 
+			if (xArriv < 0 || yArriv < 0 || xArriv > sizeMaxI
+					|| yArriv > sizeMaxJ) {
+				if(this->modeJoeur){
+					cout << "valeur INCORRECT ou Mouvement Interdit\n" << endl;
+				}
+			} else {
 
-        else if(!(this->plateau[i1][j1]->getEmptyCase() || this->plateau[i2][j2]->getEmptyCase())){
+				this->doSwap(xArriv, yArriv);
 
-            cerr<<"select the empty case"<<endl;
-
-        }
-        else{
-
-            this->doSwap(i1,j1,i2,j2);
-        }
-        delete commande;
-    }
+				this->PositionXPersonnage = xArriv;
+				this->PositionYPersonnage = yArriv;
+				moveNotDone=false;
+			}
+		}
+		delete commande;
+	}
 
 };
 

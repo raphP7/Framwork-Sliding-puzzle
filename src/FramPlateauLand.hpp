@@ -55,6 +55,10 @@ template<class T> class FramPlateauLand
 protected:
 	int PlateauSizeI;
 	int PlateauSizeJ;
+
+    int PositionXPersonnage;
+    int PositionYPersonnage;
+
 	vector<vector<T*> >plateau;
 	int speedGame;
 	bool modeJoeur;// si TRUE -> utlisateur | FALSE -> automatique
@@ -95,11 +99,15 @@ public:
         cerr<<"PAS BON initPlateau"<<endl;
     }
 
-    void doSwap(int i1,int j1,int i2,int j2);
+    void doSwap(int i2,int j2);
+
+    void getPositionFromDirectionPersonnage(int * xArriv , int * yArriv,char direction);
 
     bool doDirectionalSWIPE(char direction,bool recursive,bool justTest=false);
 
     T* getRandomEmptyCase();
+
+    char getRandomDirection();
 
 
     void getInputFromConsole(int * input, int size, int groupe,
@@ -107,18 +115,12 @@ public:
 					string());
 
     void getInputDirectionFromConsole(char * input){
-			cout<<"Entre une valeur :";
+			cout<<"Entre une direction i|j|k|l :";
 			cin>>input;
     }
 
     char* getCommandeFromConsole(int nbCommandes);
 
-    void do1Round(){
-        if(modeJoeur){
-            this->performAction();
-        }
-
-    }
 
     bool getModeJeux(){
         return modeJoeur;
