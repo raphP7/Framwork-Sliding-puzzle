@@ -163,6 +163,4 @@ int main() {
 	delete fram;
 	*/
 
-
-
 }

@@ -29,10 +29,11 @@ bool PlateauSokoban::gameEnd() {
 	//TODO
 	while (monIter.hasnext()) {
 
-		if (tmpActual->valeur == '.') {
+		if (tmpActual->valeur == '$') {
 			return false;
 			//une case but est vide ( sans caisse dessus);
 		}
+
 
 		tmpActual = monIter.next();
 

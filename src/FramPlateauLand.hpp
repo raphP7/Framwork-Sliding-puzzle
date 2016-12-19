@@ -53,8 +53,6 @@ template<class T> class FramPlateauLand
 {
 
 protected:
-	int PlateauSizeI;
-	int PlateauSizeJ;
 
     int PositionXPersonnage;
     int PositionYPersonnage;
@@ -65,6 +63,8 @@ protected:
 	bool isJeuxPersonnage; // si TRUE -> mode case qui se deplace | FALSE -> jeux autre ( exemple 2048 )
 
 public:
+	int PlateauSizeI;
+	int PlateauSizeJ;
     void startGame();
 
     virtual bool gameEnd()=0;

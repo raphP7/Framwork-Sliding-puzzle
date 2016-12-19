@@ -35,7 +35,6 @@ template<class T> void FramPlateauLand<T>::startGame() {
 			}
 			delete direction;
 
-
 		}else{
 			this->performAction();
 		}
