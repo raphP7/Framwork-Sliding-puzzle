@@ -12,11 +12,11 @@
 using namespace std;
 #include <iostream>
 
-template<class T>class CaseSokoban: public CaseGeneric
+class CaseSokoban: public CaseGeneric
 {
 
 public:
-	T valeur;
+	char valeur;
 	bool EmptyCase;
 
 	virtual bool FusionWith(CaseGeneric & case2,bool justTest){
@@ -46,7 +46,7 @@ public:
     	return EmptyCase;
     }
 
-    friend bool operator<(CaseSokoban<T> const &a, CaseSokoban<T> const& b){
+    friend bool operator<(CaseSokoban const &a, CaseSokoban const& b){
     	if(a.EmptyCase || b.EmptyCase){
     			return true;
     		}else{

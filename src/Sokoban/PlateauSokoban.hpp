@@ -10,23 +10,51 @@
 #include "CaseSokoban.hpp"
 #include "../FramPlateauLand.hpp"
 
-
-template<class T>class PlateauSokoban: public FramPlateauLand<CaseSokoban <T> >
-{
+class PlateauSokoban: public FramPlateauLand<CaseSokoban>{
 
 public:
 
-    PlateauSokoban(int sizeI, int sizeJ,int nbCases):FramPlateauLand<CaseSokoban<T> >(sizeI, sizeJ),nbCases(nbCases){}
+    PlateauSokoban(int sizeI, int sizeJ):FramPlateauLand<CaseSokoban> (sizeI, sizeJ), PositionXPersonnage(-1),PositionYPersonnage(-1){}
 
     virtual ~PlateauSokoban(){}
 
-    virtual void initPlateau(vector<T> contenuJeu){
+    virtual void initPlateau(vector<char> contenuJeu){
+
+    	vector<char>::iterator iterContenuJeu(contenuJeu.begin());
+
+    	int cmp=0;
+    	int position =-1;
+
+    	bool personnageFind=false;
+
+    	while (iterContenuJeu!=contenuJeu.end()){
+    		if(*iterContenuJeu=='@'){
+    			if(personnageFind){
+    				cerr<<"attention il y a 2 personnage !! en case "<<cmp<<endl;
+    			}
+    			position=cmp;
+    			personnageFind=true;
+    		}
+    		cmp++;
+    		iterContenuJeu++;
+    	}
+
+    	if(position==-1){
+    		cout<<"Aucun personnage "<<endl;
+    	}
+    	PositionXPersonnage=position/PlateauSizeJ;
+
+    	PositionYPersonnage=position%PlateauSizeJ;
+
+    	cout<<"personnage en case "<<PositionXPersonnage<<" : "<<PositionYPersonnage<<endl;
+
     	this->applyInitPlateau(contenuJeu);
     }
 
 private:
 
-    int nbCases;
+    int PositionXPersonnage;
+    int PositionYPersonnage;
 
     virtual bool gameEnd();
 
@@ -67,9 +95,7 @@ private:
     }
 
 
-
 };
 
-#include "PlateauSokoban.tpp"
 
 #endif /* PLATEAUTsokoban_HPP_ */

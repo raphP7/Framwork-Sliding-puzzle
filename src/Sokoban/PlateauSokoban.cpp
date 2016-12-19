@@ -1,16 +1,17 @@
 /*
- * PlateauSokoban.tpp
+ * PlateauSokoban.cpp
  *
  *  Created on: 1 déc. 2016
  *      Author: raphael
  */
 
+#include"PlateauSokoban.hpp"
 
-template<class T> bool PlateauSokoban<T>::gameEnd() {
+bool PlateauSokoban::gameEnd() {
 
-	iterDoubleVector<CaseSokoban<T> > monIter(this->plateau);
+	iterDoubleVector<CaseSokoban > monIter(this->plateau);
 
-	CaseSokoban<T> *tmpActual = monIter.next();
+	CaseSokoban *tmpActual = monIter.next();
 
 	if (tmpActual == nullptr) {
 		cerr << "GameEnd with an empty plateau" << endl;

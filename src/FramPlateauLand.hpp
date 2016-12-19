@@ -52,10 +52,9 @@ template<class T> class iterDoubleVector{
 template<class T> class FramPlateauLand
 {
 
-private:
+protected:
 	int PlateauSizeI;
 	int PlateauSizeJ;
-protected:
 	vector<vector<T*> >plateau;
 	int speedGame;
 	bool modeJoeur;// si TRUE -> utlisateur | FALSE -> automatique

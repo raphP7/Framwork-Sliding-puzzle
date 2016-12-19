@@ -8,16 +8,16 @@
 
 void playSokoban(){
 
-	PlateauSokoban<int> pTakinInt(5,5,1);
-    vector<int> v { 1,1,1,1,1,
-    				1,0,0,0,1,
-					1,2,3,0,1,
-					1,0,0,0,1,
-					1,1,1,1,1,
+	PlateauSokoban pSokoban(5,5);
+    vector<char> v { '#','#','#','#','#',
+    				'#',' ',' ',' ','#',
+					'#','.','$',' ','#',
+					'#',' ',' ','@','#',
+					'#','#','#','#','#',
     				};
-    pTakinInt.initPlateau(v);
-    pTakinInt.setModeJeux(true);
-    pTakinInt.startGame();
+    pSokoban.initPlateau(v);
+    pSokoban.setModeJeux(true);
+    pSokoban.startGame();
 }
 
 void playTakin(){
