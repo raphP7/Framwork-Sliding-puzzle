@@ -13,17 +13,12 @@
 class PlateauSokoban: public FramPlateauLand<CaseSokoban> {
 
 public:
-
 	PlateauSokoban(int sizeI, int sizeJ);
-
 	virtual ~PlateauSokoban();
-
 	virtual void initPlateau(vector<char> contenuJeu);
 
 private:
-
 	virtual bool gameEnd();
-
 	virtual bool performAction(int xArriv, int yArriv,char direction);
 
 };

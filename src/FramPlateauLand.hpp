@@ -52,6 +52,9 @@ template<class T> class iterDoubleVector{
 template<class T> class FramPlateauLand
 {
 
+private:
+	bool modeTerminal;
+
 protected:
 
     int PositionXPersonnage;
@@ -65,9 +68,15 @@ protected:
 public:
 	int PlateauSizeI;
 	int PlateauSizeJ;
-    void startGame();
+
+	void StartModeTerminal();
 
     virtual bool gameEnd()=0;
+
+    virtual void afterAction(){
+		//TODO EXCEPTION
+		//cerr << "PAS BON isFusionnable" << endl;
+    }
 
     virtual bool isFusionnable(T * case1,T * case2)const{
     	//TODO EXCEPTION
@@ -84,6 +93,8 @@ public:
     	//TODO EXCEPTION
     	cerr<<"PAS BON applyFusion"<<endl;
     }
+
+    bool doAction(char direction);
 
     virtual bool performAction(int xArriv=0,int yArriv=0,char direction=0)=0;
 
@@ -111,7 +122,7 @@ public:
 			string const& message1 = string(), string const& message2 =
 					string());
 
-	void getInputDirectionFromConsole(char * input);
+	char getInputDirectionFromConsole();
 
 	bool testArrivalPositionForPersonnage(int  xArriv, int  yArriv);
 
@@ -163,6 +174,9 @@ public:
 		}
 	}
 
+	bool getModeTerminal(){
+		return modeTerminal;
+	}
 };
 
 #include"FramPlateauLand.tpp"

@@ -29,7 +29,7 @@ bool PlateauSokoban::gameEnd() {
 	//TODO
 	while (monIter.hasnext()) {
 
-		if (tmpActual->valeur == '$') {
+		if (tmpActual->getValeur() == '$') {
 			return false;
 			//une case but est vide ( sans caisse dessus);
 		}
@@ -79,11 +79,11 @@ bool PlateauSokoban::performAction(int xArriv, int yArriv, char direction) {
 	CaseSokoban * nextPersonnage = plateau[xArriv][yArriv];
 
 		//a wall
-	if (nextPersonnage->valeur == '#') {
+	if (nextPersonnage->getValeur() == '#') {
 		return false;
 
 		//a box
-	} else if (nextPersonnage->valeur == '$' || nextPersonnage->valeur == '*') {
+	} else if (nextPersonnage->getValeur() == '$' || nextPersonnage->getValeur() == '*') {
 
 		int xAfterCaisse = -1;
 		int yAfterCaisse = -1;
@@ -95,18 +95,18 @@ bool PlateauSokoban::performAction(int xArriv, int yArriv, char direction) {
 
 
 		//an available case for a BOXE
-		if (FuturPositionCaisse->valeur == ' ' || FuturPositionCaisse->valeur == '.') {
+		if (FuturPositionCaisse->getValeur() == ' ' || FuturPositionCaisse->getValeur() == '.') {
 
-			if(nextPersonnage->valeur=='*'){
-				nextPersonnage->valeur='.';
+			if(nextPersonnage->getValeur()=='*'){
+				nextPersonnage->setValeur('.');
 			}else{
-				nextPersonnage->valeur=' ';
+				nextPersonnage->setValeur(' ');
 			}
 
-			if(FuturPositionCaisse->valeur == '.'){
-				FuturPositionCaisse->valeur='*';
+			if(FuturPositionCaisse->getValeur() == '.'){
+				FuturPositionCaisse->setValeur('*');
 			}else{
-				FuturPositionCaisse->valeur='$';
+				FuturPositionCaisse->setValeur('$');
 			}
 
 		}
@@ -117,16 +117,16 @@ bool PlateauSokoban::performAction(int xArriv, int yArriv, char direction) {
 
 	CaseSokoban * oldCase = plateau[PositionXPersonnage][PositionYPersonnage];
 
-	if(oldCase->valeur=='+'){
-		oldCase->valeur='.';
+	if(oldCase->getValeur()=='+'){
+		oldCase->setValeur('.');
 	}else{
-		oldCase->valeur=' ';
+		oldCase->setValeur(' ');
 	}
 
-	if (nextPersonnage->valeur== '.') {
-		nextPersonnage->valeur = '+';
+	if (nextPersonnage->getValeur()== '.') {
+		nextPersonnage->setValeur('+');
 	}else{
-		nextPersonnage->valeur='@';
+		nextPersonnage->setValeur('@');
 	}
 
 	this->PositionXPersonnage = xArriv;

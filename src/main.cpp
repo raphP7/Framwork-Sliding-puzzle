@@ -4,6 +4,8 @@
 #include"2048/Case2048Destroy/Case2048Destroy.hpp"
 #include"Takin/PlateauTakin.hpp"
 #include"Sokoban/PlateauSokoban.hpp"
+#include "Sokoban/CaseSokoban.hpp"
+#include"Display/display.hpp"
 #include <memory>
 
 void playSokoban(){
@@ -17,7 +19,9 @@ void playSokoban(){
     				};
     pSokoban.initPlateau(v);
     pSokoban.setModeJeux(true);
-    pSokoban.startGame();
+    display<CaseSokoban> affichage(&pSokoban);
+    //pSokoban.StartModeTerminal();
+    affichage.StartModeWindow();
 }
 
 void playTakinInt(){
@@ -28,7 +32,7 @@ void playTakinInt(){
     pTakinInt.setBlank(1,0);
     pTakinInt.setBlankCaseAtTheEnd();
     pTakinInt.setModeJeux(true);
-    pTakinInt.startGame();
+    pTakinInt.StartModeTerminal();
 }
 
 void playTakinChar(){
@@ -39,7 +43,7 @@ void playTakinChar(){
     pTakinInt.setBlank(1,0);
     pTakinInt.setBlankCaseAtTheEnd();
     pTakinInt.setModeJeux(true);
-    pTakinInt.startGame();
+    pTakinInt.StartModeTerminal();
 }
 
 void play2048(){
@@ -60,7 +64,7 @@ void play2048(){
 	pl2048.plateau[0][1]->valeur=2;
 
 	*/
-	pl2048.startGame();
+	pl2048.StartModeTerminal();
 }
 
 const Case2048 Case2048::operator+(const Case2048 &other) const {

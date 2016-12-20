@@ -10,32 +10,26 @@
 
 #include "../FramPlateauLand.hpp"
 #include <SFML/Graphics.hpp>
-#include <utility>
-#include <sstream>
-#include <string>
-#include <stdlib.h>
-
 
 #define tailleX 2
 #define tailleY 2
-
 #define tailleXn tailleX-1
-
 #define tailleYn tailleY-1
-
 #define sizeblock 120
 
 
-class display {
+template <typename T>class display {
+
+private:
+	void initWindow();
+	void refreshScreen();
+	FramPlateauLand<T> * plateau;
+
 public:
 
-	FramPlateauLand<CaseGeneric> * plateau;
+	display(FramPlateauLand<T> * plateau);
 
-	display(FramPlateauLand<CaseGeneric> * plateau);
-
-	void show();
-
-	void refreshScreen();
+	void StartModeWindow();
 
 	unsigned short score = 0;
 	unsigned short highScore = 0;
@@ -59,11 +53,11 @@ public:
 	sf::Text scoreDecoratorText;
 	sf::Text tileText;
 
-
 	map<int, sf::Color> numberColours;
 	bool showGameOver = false;
 
-
 };
+
+#include "display.tpp"
 
 #endif /* DISPLAY_HPP_ */

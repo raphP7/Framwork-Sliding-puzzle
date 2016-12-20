@@ -9,21 +9,13 @@
 #define CASESokoban_HPP_
 #include "../CaseGeneric.hpp"
 
-using namespace std;
-#include <iostream>
-
 class CaseSokoban: public CaseGeneric
 {
 
 public:
 	char valeur;
-	bool EmptyCase;
 
 	virtual bool FusionWith(CaseGeneric & case2,bool justTest){
-		return true;
-	}
-
-	virtual bool operator==(CaseGeneric& case2){
 		return false;
 	}
 
@@ -31,28 +23,21 @@ public:
     {
         O << valeur << " ";
     }
+
     CaseSokoban(int _i, int _j) :
-        CaseGeneric(_i, _j,false), valeur(0),EmptyCase(false)
+        CaseGeneric(_i, _j,false), valeur(0)
     {
         //std::cout << "appel constructeur CaseSokoban : "<<i<<" "<<j << std::endl;
 
     }
-    ~CaseSokoban()
-    {
-        //std::cout<<"delete Sokoban de "<<i<<" "<<j<<std::endl;
-    }
+    virtual ~CaseSokoban(){}
 
-    bool getEmptyCase(){
-    	return EmptyCase;
-    }
-
-    friend bool operator<(CaseSokoban const &a, CaseSokoban const& b){
-    	if(a.EmptyCase || b.EmptyCase){
-    			return true;
-    		}else{
-    			return a.valeur<b.valeur;
-    		}
-    }
+	char getValeur() {
+		return valeur;
+	}
+	char setValeur(char val2) {
+		return valeur=val2;
+	}
 };
 
 

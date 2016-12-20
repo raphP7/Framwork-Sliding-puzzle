@@ -6,7 +6,6 @@
  */
 
 #include "Plateau2048.hpp"
-#include "Case2048.hpp"
 
 Plateau2048::Plateau2048(int sizeI, int sizeJ) :
 		FramPlateauLand<Case2048>(sizeI, sizeJ,false) {
@@ -25,33 +24,13 @@ void Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2) {
 	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
 	case1->FusionWith(*case2,false);
 }
+
 bool Plateau2048::performAction(int xArriv,int yArriv,char direction){
 
-	char *commande = new char();
-	bool Notdone = true;
-	while (Notdone) {
-
-		if(modeJoeur){
-			this->getInputDirectionFromConsole(commande);
-		}else{
-			*commande=this->getRandomDirection();
-			//cout<<"direction choisi : "<<*commande<<endl;
-		}
-		if (doDirectionalSWIPE(*commande, recursive)) {
-			Notdone = false;
-		} else {
-			if(modeJoeur){
-				cout << "MOUVEMENT INEFICASSE" << endl;
-			}
-		}
-	}
-	addNewValue();
-	delete commande;
-	return true;
+	return doDirectionalSWIPE(direction, recursive);
 }
 
-void Plateau2048::addNewValue() {
-
+void Plateau2048::afterAction(){
 	Case2048 * tmp=this->getRandomEmptyCase();
 
 	//select by random the case with a new value
@@ -73,29 +52,31 @@ void Plateau2048::addNewValue() {
 
 void Plateau2048::initPlateau(vector<int> contenuJeu) {
 
-		iterDoubleVector<Case2048> monIter(this->plateau);
+	iterDoubleVector<Case2048> monIter(this->plateau);
 
-		//for good random
-		random_device seeder;
-		mt19937 engine(seeder());
-		uniform_int_distribution<int> dist(0, monIter.getSizeMax() - 1);
-		int randomPosition = dist(engine);
+	//for good random
+	random_device seeder;
+	mt19937 engine(seeder());
+	uniform_int_distribution<int> dist(0, monIter.getSizeMax() - 1);
+	int randomPosition = dist(engine);
 
-		int i = randomPosition / plateau.size();
-		int j = randomPosition % plateau.size();
+	int i = randomPosition / plateau.size();
+	int j = randomPosition % plateau.size();
 
-		plateau[i][j]->valeur = 2;
-		plateau[i][j]->empty = false;
+	plateau[i][j]->valeur = 2;
+	plateau[i][j]->empty = false;
 
-	}
+}
 
 bool Plateau2048::gameEnd() {
 	/*
-	cout<<"i possible ?"<<doDirectionalSWIPE('i',false ,true) <<endl;
-	cout<<"j possible ?"<<doDirectionalSWIPE('j',false ,true) <<endl;
-	cout<<"k possible ?"<<doDirectionalSWIPE('k',false ,true) <<endl;
-	cout<<"l possible ?"<<doDirectionalSWIPE('l',false ,true) <<endl;
-	*/
-	return !(doDirectionalSWIPE('i',false ,true) || doDirectionalSWIPE('j',false ,true) ||
-			doDirectionalSWIPE('k',false ,true) || doDirectionalSWIPE('l',false ,true));
+	 cout<<"i possible ?"<<doDirectionalSWIPE('i',false ,true) <<endl;
+	 cout<<"j possible ?"<<doDirectionalSWIPE('j',false ,true) <<endl;
+	 cout<<"k possible ?"<<doDirectionalSWIPE('k',false ,true) <<endl;
+	 cout<<"l possible ?"<<doDirectionalSWIPE('l',false ,true) <<endl;
+	 */
+	return !(doDirectionalSWIPE('i', false, true)
+			|| doDirectionalSWIPE('j', false, true)
+			|| doDirectionalSWIPE('k', false, true)
+			|| doDirectionalSWIPE('l', false, true));
 }

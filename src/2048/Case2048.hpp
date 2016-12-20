@@ -10,18 +10,14 @@
 #include "../CaseGeneric.hpp"
 #include <typeinfo>
 
-using namespace std;
-#include <iostream>
-
 class Case2048: public CaseGeneric {
 
 public:
-	const Case2048 operator+(const Case2048 &other) const;
-
 	int valeur;
-	virtual void Print(std::ostream& O) const;
 	Case2048(int _i, int _j,bool empty=true);
 	virtual ~Case2048();
+	virtual void Print(std::ostream& O) const;
+	const Case2048 operator+(const Case2048 &other) const;
 
 	/**
 	 * Renvoi true si les deux cases peuvent FUSIONNER
@@ -42,7 +38,7 @@ public:
 			}
 
 		} else {
-			cout << "un inconnu 2048" << endl;
+			std::cout << "un inconnu 2048" << std::endl;
 			return case2.FusionWith(*this, justTest);
 		}
 	}

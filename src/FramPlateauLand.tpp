@@ -5,44 +5,53 @@
  *      Author: raphael
  */
 
-template<class T> void FramPlateauLand<T>::startGame() {
+
+template<class T> bool FramPlateauLand<T>::doAction(char direction) {
+
+	int xArriv = -1;
+	int yArriv = -1;
+
+	if (isJeuxPersonnage) {
+		this->getArrival_from_Direction_of_Personnage(&xArriv, &yArriv,
+				direction);
+		if (!this->testArrivalPositionForPersonnage(xArriv, yArriv)) {
+			return false;
+		}
+	}
+
+	if (this->performAction(xArriv, yArriv, direction)) {
+
+		afterAction();
+		return true;
+	} else {
+		if (modeJoeur && this->modeTerminal) {
+			cout << "MOUVEMENT INEFICASSE" << endl;
+		}
+		return false;
+	}
+}
+
+template<class T> void FramPlateauLand<T>::StartModeTerminal() {
+	this->modeTerminal=true;
 	this->affiche();
 	do {
+		bool moveNotDone = true;
+		char direction;
 
-		if (isJeuxPersonnage) {
-
-			bool moveNotDone = true;
-			char *direction = new char();
-			int xArriv = -1;
-			int yArriv = -1;
-
-			while (moveNotDone) {
-				if (this->modeJoeur) {
-					this->getInputDirectionFromConsole(direction);
-				} else {
-					*direction = this->getRandomDirection();
-					cout << "direction choisi : " << *direction << endl;
-				}
-				this->getArrival_from_Direction_of_Personnage(&xArriv, &yArriv,
-						*direction);
-
-				if (this->testArrivalPositionForPersonnage(xArriv, yArriv)) {
-
-					if(this->performAction(xArriv, yArriv,*direction)){
-						moveNotDone = false;
-					}
-				}
+		while (moveNotDone) {
+			if (this->modeJoeur) {
+				direction=getInputDirectionFromConsole();
+			} else {
+				direction = this->getRandomDirection();
+				cout<< "direction choisi : " << direction << endl;
 			}
-			delete direction;
-
-		}else{
-			this->performAction();
+			moveNotDone = !doAction(direction);
 		}
 		this->affiche();
-
 	} while (!this->gameEnd());
 	cout << "JEUX FINI" << endl;
 }
+
 
 template<class T> void FramPlateauLand<T>::doSwap(int i2,int j2){
 
@@ -52,20 +61,23 @@ template<class T> void FramPlateauLand<T>::doSwap(int i2,int j2){
 
 }
 
-template<class T> void FramPlateauLand<T>::getInputDirectionFromConsole(char * input) {
+template<class T> char FramPlateauLand<T>::getInputDirectionFromConsole() {
 	bool notGoodValue = true;
+	char input =' ';
 	while (notGoodValue) {
+
 		cout << "Entre une direction i|j|k|l :";
-		cin >> input;
-		if (*input == 'i' || *input == 'j' || *input == 'k'
-				|| *input == 'l') {
+		cin >> &input;
+		if (input == 'i' || input == 'j' || input == 'k'
+				|| input == 'l') {
 			notGoodValue=false;
 		}
 		else{
 			cout<< "BAD INPUT , i -> UP | j -> LEFT | k -> DOWN | l -> RIGHT"<< endl;
-
 		}
 	}
+
+	return input;
 
 }
 
@@ -392,6 +404,7 @@ template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ,bool 
                 plateau[i].push_back(new T( i, j));
             }
         }
+        modeTerminal=false;
         speedGame=1;
         modeJoeur=true;
         isJeuxPersonnage=_isJeuxPersonnage;

@@ -1,6 +1,14 @@
-#include "display.hpp"
+/*
+ * display.tpp
+ *
+ *  Created on: 1 déc. 2016
+ *      Author: raphael
+ */
 
-display::display(FramPlateauLand<CaseGeneric> * plateau):plateau(plateau){
+
+template<class T>  display<T>::display(FramPlateauLand<T> * plateau):plateau(plateau){
+
+
 	unsigned short score = 0;
 	unsigned short highScore = 0;
 
@@ -18,6 +26,7 @@ display::display(FramPlateauLand<CaseGeneric> * plateau):plateau(plateau){
 	float gridSize = (sizeblock * tailleXn - (padding * 2.f));
 	float tileSize = (gridSize - (5 * padding)) / tailleX;
 
+
 	sf::RenderWindow window(sf::VideoMode(sizeblock * tailleX, sizeblock + 120 *tailleYn), "TITRE", sf::Style::Close|sf::Style::Titlebar);
 	sf::RectangleShape gridBackgroundRect(sf::Vector2f(gridSize, gridSize));
 	sf::RectangleShape gameOverBackground(sf::Vector2f(gridSize, gridSize));
@@ -28,13 +37,12 @@ display::display(FramPlateauLand<CaseGeneric> * plateau):plateau(plateau){
 	sf::Text scoreDecoratorText("", font, 15);
 	sf::Text tileText;
 
-
 	map<int, sf::Color> numberColours;
 	bool showGameOver = false;
 
 }
 
-void display::refreshScreen() {
+template<class T> void display<T>::refreshScreen() {
 	window.clear(windowBGColour);
 
 	window.draw(gridBackgroundRect);
@@ -81,8 +89,7 @@ void display::refreshScreen() {
 	window.display();
 }
 
-
-void display::show() {
+template<class T> void display<T>::initWindow() {
 	// Try and load the font
 	if (!font.loadFromFile("ClearSans-Bold.ttf")) {
 		printf("Font fail\r\n");
@@ -132,24 +139,28 @@ void display::show() {
 	gameOverText.setColor(textColour);
 	gameOverText.setPosition(sf::Vector2f(60, 265));
 
+}
 
-	// Some stuff for making the random adds to hapen after a slight delay
+template<class T> void display<T>::StartModeWindow() {
+
+	if(this->plateau->getModeTerminal()){
+		cerr<<"mode TERMINAL ACTIVER !!"<<endl;
+		return;
+	}
+	this->initWindow();
 	bool moveDone = false;
-	bool scheduledNumberAdd = false;
-	sf::Clock clock;
-	clock.restart();
-	sf::Time addTimeout = sf::milliseconds(75);
-
 	char commande=' ';
+
 	while (window.isOpen()) {
+		cout<<"dans fenetre"<<endl;
+
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
-			if (event.type == sf::Event::KeyPressed && !moveDone
-					&& !scheduledNumberAdd) {
-				unsigned char tilesMoved = 0;
+			if (event.type == sf::Event::KeyPressed && !moveDone ) {
+				commande=' ';
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 					commande = 'i';
 				} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
@@ -164,26 +175,21 @@ void display::show() {
 					//reset();
 					continue;
 				}
-				moveDone = true;
-				if (tilesMoved > 0) {
-					scheduledNumberAdd = true;
-					clock.restart();
+
+				if (commande != ' ') {
+					if(this->plateau->doAction(commande)){
+						moveDone=true;
+					}
 				}
+
 			}
 			if (event.type == sf::Event::KeyReleased && moveDone) {
 
-				this->plateau->performAction();
-
-				if (this->plateau->gameEnd()) {
+				if (plateau->gameEnd()) {
 					showGameOver = true;
 				}
 				moveDone = false;
 			}
-		}
-
-		if (scheduledNumberAdd && clock.getElapsedTime() > addTimeout) {
-			//new value
-			scheduledNumberAdd = false;
 		}
 		refreshScreen();
 	}
