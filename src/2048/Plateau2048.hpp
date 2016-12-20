@@ -20,12 +20,13 @@ public:
 	virtual void initPlateau(vector<int> contenuJeu = DEFAULT_VECTOR);
 
 private:
-	virtual bool isFusionnable(Case2048 * case1, Case2048 * case2)const;
-	virtual bool isCaseEmpty(Case2048 const* case1);
-	virtual void applyFusion(Case2048 * case1, Case2048 * case2);
 	virtual bool performAction(int xArriv=0,int yArriv=0,char direction=0);
-	virtual void afterAction();
-	virtual bool gameEnd();
+	virtual void afterAction(Case2048 * newCase=nullptr);
+	virtual bool isGameEnd();
+
+	virtual char isFusionnable(Case2048 * case1, Case2048 * case2)const;
+	virtual bool isCaseEmpty(Case2048 const* case1);
+	virtual DoublePointer<Case2048>* applyFusion(Case2048 * case1, Case2048 * case2,char direction);
 
 };
 

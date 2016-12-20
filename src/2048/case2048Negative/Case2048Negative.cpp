@@ -8,10 +8,8 @@
 #include "Case2048Negative.hpp"
 
 Case2048Negative::Case2048Negative(int _i, int _j) :
-		CaseGeneric(_i, _j), valeur(0) {
-
+		Case2048(_i, _j), valeur(0) {
 	//std::cout << "appel constructeur Case2048 : "<<i<<" "<<j << std::endl;
-
 }
 
 Case2048Negative::~Case2048Negative() {

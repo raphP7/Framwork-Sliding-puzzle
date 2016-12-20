@@ -11,51 +11,65 @@
 #include "../FramPlateauLand.hpp"
 #include <SFML/Graphics.hpp>
 
-#define tailleX 2
-#define tailleY 2
-#define tailleXn tailleX-1
-#define tailleYn tailleY-1
-#define sizeblock 120
 
-
-template <typename T>class display {
-
-private:
-	void initWindow();
-	void refreshScreen();
-	FramPlateauLand<T> * plateau;
+template<typename T> class display {
 
 public:
-
-	display(FramPlateauLand<T> * plateau);
-
+	display(FramPlateauLand<T> & plateau,int sizeBlock);
+	virtual ~display();
 	void StartModeWindow();
 
-	unsigned short score = 0;
-	unsigned short highScore = 0;
-	unsigned short grid [tailleX][tailleY];
+private:
+	void refreshWindow();
+	void quitOrGameOver(sf::Event &event);
+	void modeAuto();
+	void modeGamer();
+	int speedGame;
 
-	sf::Font font;
-	sf::Color windowBGColour;
-	sf::Color gridBGColour;
-	sf::Color textColour;
-	float padding = 10.f;
-	float gridSize = (sizeblock * tailleXn - (padding * 2.f));
-	float tileSize = (gridSize - (5 * padding)) / tailleX;
+protected:
+	virtual void initWindow();
+	FramPlateauLand<T> & plateau;
+	sf::RenderWindow * window;
+	sf::Font * font;
+	sf::Color * windowBGColour;
+	sf::Color * gridBGColour;
+	sf::Color * textColour;
+	sf::RectangleShape * gridBackgroundRect;
+	sf::RectangleShape * gameOverBackground;
+	sf::RectangleShape * gridTile;
+	sf::Text * titleText;
+	sf::Text * gameOverText;
+	sf::Text * scoreText;
+	sf::Text * scoreDecoratorText;
+	sf::Text * tileText;
 
-	sf::RenderWindow window;
-	sf::RectangleShape gridBackgroundRect;
-	sf::RectangleShape gameOverBackground;
-	sf::RectangleShape gridTile;
-	sf::Text titleText;
-	sf::Text gameOverText;
-	sf::Text scoreText;
-	sf::Text scoreDecoratorText;
-	sf::Text tileText;
+	float sizeblock;
 
-	map<int, sf::Color> numberColours;
-	bool showGameOver = false;
+	unsigned short score;
+	unsigned short highScore;
 
+	//epaisseur traits
+	float padding;
+
+	//dimension tableau
+	float gridSizeI;
+	float gridSizeJ;
+
+	//dimention fenetre
+	float windowSizeI;
+	float windowSizeJ;
+
+	//pour dessiner les cases
+	float margeNormal;
+	float margeY;
+	float margeX;
+
+	//taille reserver pour le titre
+	//float tileSize;
+
+	bool showGameOver;
+
+	void setSpeed(int _speed);
 };
 
 #include "display.tpp"

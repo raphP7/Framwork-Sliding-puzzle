@@ -6,7 +6,7 @@
  */
 
 template<class T> CaseTakin<T>::CaseTakin(int _i, int _j) :
-		CaseGeneric(_i, _j, false), valeur(0), EmptyCase(false) {
+		CaseGeneric(_i, _j), valeur(0), EmptyCase(false) {
 	//std::cout << "appel constructeur CaseTakin : "<<i<<" "<<j << std::endl;
 
 }

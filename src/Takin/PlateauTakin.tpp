@@ -33,7 +33,7 @@ template<class T> void PlateauTakin<T>::setBlankCaseAtTheEnd() {
 	BlankCaseAtTheEnd = true;
 }
 
-template<class T> bool PlateauTakin<T>::gameEnd() {
+template<class T> bool PlateauTakin<T>::isGameEnd() {
 
 	iterDoubleVector<CaseTakin<T> > monIter(this->plateau);
 	CaseTakin<T> *tmpBefore;

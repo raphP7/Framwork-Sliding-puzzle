@@ -15,7 +15,7 @@ PlateauSokoban::PlateauSokoban(int sizeI, int sizeJ) :
 
 PlateauSokoban::~PlateauSokoban() {
 }
-bool PlateauSokoban::gameEnd() {
+bool PlateauSokoban::isGameEnd() {
 
 	iterDoubleVector<CaseSokoban > monIter(this->plateau);
 
@@ -41,7 +41,31 @@ bool PlateauSokoban::gameEnd() {
 	return true;
 }
 
-void PlateauSokoban::initPlateau(vector<char> contenuJeu){
+
+PlateauSokoban* PlateauSokoban::readFile(const char * nameFile) {
+
+
+	if(nameFile==nullptr){
+		return nullptr;
+	}
+	ifstream aFile(nameFile);
+	std::size_t lines_count = 0;
+	std::string line;
+	int biggerSizeLine=0;
+	while (std::getline(aFile, line)) {
+		if(line.size()>biggerSizeLine){
+			biggerSizeLine=line.size();
+		}
+
+		++lines_count;
+	}
+
+	std::cout<<"TAILLE PLATEAU "<<lines_count<<" et "<<biggerSizeLine<<std::endl;
+
+	return nullptr;
+}
+
+void PlateauSokoban::initPlateau(vector<char> & contenuJeu){
 
     	vector<char>::iterator iterContenuJeu(contenuJeu.begin());
 

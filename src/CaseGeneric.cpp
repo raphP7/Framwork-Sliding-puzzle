@@ -8,8 +8,8 @@
 #include "CaseGeneric.hpp"
 #include "FramPlateauLand.hpp"
 
-CaseGeneric::CaseGeneric(int _i, int _j, bool _empty) :
-		i(_i), j(_j), empty(_empty) {
+CaseGeneric::CaseGeneric(int _i, int _j) :
+		i(_i), j(_j) {
 
 	//std::cout << "appel constructeur CaseGeneric : "<<i<<" "<<j << std::endl;
 

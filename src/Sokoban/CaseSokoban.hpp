@@ -15,8 +15,12 @@ class CaseSokoban: public CaseGeneric
 public:
 	char valeur;
 
-	virtual bool FusionWith(CaseGeneric & case2,bool justTest){
+	virtual char testFusion(CaseGeneric * case2){
 		return false;
+	}
+
+	virtual CaseGeneric* performFusion(CaseGeneric * case2,char direction){
+		return nullptr;
 	}
 
     virtual void Print(std::ostream& O) const
@@ -24,8 +28,12 @@ public:
         O << valeur << " ";
     }
 
+    virtual std::string toString() const{
+    	return std::string(1,valeur);
+    }
+
     CaseSokoban(int _i, int _j) :
-        CaseGeneric(_i, _j,false), valeur(0)
+        CaseGeneric(_i, _j), valeur(0)
     {
         //std::cout << "appel constructeur CaseSokoban : "<<i<<" "<<j << std::endl;
 

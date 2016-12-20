@@ -12,7 +12,7 @@
 using namespace std;
 #include <iostream>
 
-class Case2048Negative: public CaseGeneric {
+class Case2048Negative: public Case2048 {
 
 public:
 	int valeur;

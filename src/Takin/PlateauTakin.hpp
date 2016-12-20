@@ -28,7 +28,7 @@ private:
 	bool AlreadySetBlankCase;
 	bool BlankCaseAtTheEnd;
 
-	virtual bool gameEnd();
+	virtual bool isGameEnd();
 	virtual bool performAction(int xArriv, int yArriv,char direction);
 };
 

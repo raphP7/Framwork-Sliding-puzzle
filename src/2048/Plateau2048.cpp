@@ -12,17 +12,17 @@ Plateau2048::Plateau2048(int sizeI, int sizeJ) :
 	recursive = false;
 }
 
-bool Plateau2048::isFusionnable(Case2048 * case1, Case2048 * case2)const {
-	return case1->FusionWith(*case2,true);
+char Plateau2048::isFusionnable(Case2048 * case1, Case2048 * case2)const {
+	return case1->testFusion(case2);
+}
+DoublePointer<Case2048>* Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2,char direction) {
+	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
+
+	return case1->performFusion(case2,'l');
 }
 
 bool Plateau2048::isCaseEmpty(Case2048 const* case1) {
 	return case1->empty;
-}
-
-void Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2) {
-	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
-	case1->FusionWith(*case2,false);
 }
 
 bool Plateau2048::performAction(int xArriv,int yArriv,char direction){
@@ -30,7 +30,7 @@ bool Plateau2048::performAction(int xArriv,int yArriv,char direction){
 	return doDirectionalSWIPE(direction, recursive);
 }
 
-void Plateau2048::afterAction(){
+void Plateau2048::afterAction(Case2048 * newCase){
 	Case2048 * tmp=this->getRandomEmptyCase();
 
 	//select by random the case with a new value
@@ -46,7 +46,7 @@ void Plateau2048::afterAction(){
 	} else {
 		tmp->valeur = 2;
 	}
-	cout<<"nouvelle valeur : "<<tmp->valeur<< " Position x:"<<tmp->i<<"|y:"<<tmp->j<<endl;
+	//cout<<"nouvelle valeur : "<<tmp->valeur<< " Position x:"<<tmp->i<<"|y:"<<tmp->j<<endl;
 
 }
 
@@ -68,15 +68,16 @@ void Plateau2048::initPlateau(vector<int> contenuJeu) {
 
 }
 
-bool Plateau2048::gameEnd() {
+bool Plateau2048::isGameEnd() {
 	/*
 	 cout<<"i possible ?"<<doDirectionalSWIPE('i',false ,true) <<endl;
 	 cout<<"j possible ?"<<doDirectionalSWIPE('j',false ,true) <<endl;
 	 cout<<"k possible ?"<<doDirectionalSWIPE('k',false ,true) <<endl;
 	 cout<<"l possible ?"<<doDirectionalSWIPE('l',false ,true) <<endl;
 	 */
-	return !(doDirectionalSWIPE('i', false, true)
-			|| doDirectionalSWIPE('j', false, true)
-			|| doDirectionalSWIPE('k', false, true)
-			|| doDirectionalSWIPE('l', false, true));
+
+	return !(doDirectionalSWIPE('i', recursive, true)
+			|| doDirectionalSWIPE('j', recursive, true)
+			|| doDirectionalSWIPE('k', recursive, true)
+			|| doDirectionalSWIPE('l', recursive, true));
 }

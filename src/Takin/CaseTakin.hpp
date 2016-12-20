@@ -23,31 +23,36 @@ public:
 
 	virtual ~CaseTakin();
 
-	virtual bool FusionWith(CaseGeneric & case2,bool justTest){
-		return true;
-	}
-
-	virtual bool operator==(CaseGeneric& case2){
+	virtual char testFusion(CaseGeneric * case2){
 		return false;
 	}
+	virtual CaseGeneric* performFusion(CaseGeneric * case2,char direction){
+			return nullptr;
+	}
 
-    virtual void Print(std::ostream& O) const
-    {
-        O << valeur << " ";
-    }
+	virtual std::string toString() const {
+		stringstream ss;
+		string s;
+		ss << valeur;
+		ss >> s;
+		return s;
+	}
 
+	virtual void Print(std::ostream& O) const {
+		O << valeur << " ";
+	}
 
     bool getEmptyCase(){
     	return EmptyCase;
     }
 
-    friend bool operator<(CaseTakin<T> const &a, CaseTakin<T> const& b){
-    	if(a.EmptyCase || b.EmptyCase){
-    			return true;
-    		}else{
-    			return a.valeur<b.valeur;
-    		}
-    }
+	friend bool operator<(CaseTakin<T> const &a, CaseTakin<T> const& b) {
+		if (a.EmptyCase || b.EmptyCase) {
+			return true;
+		} else {
+			return a.valeur < b.valeur;
+		}
+	}
 };
 
 #include "CaseTakin.tpp"

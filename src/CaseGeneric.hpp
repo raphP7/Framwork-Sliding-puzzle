@@ -10,17 +10,28 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+
 
 class CaseGeneric {
+
 public:
+	//only for debug
 	int i;
 	int j;
-	bool empty;
 
-	CaseGeneric(int _i, int _j,bool _empty);
+
+	CaseGeneric(int _i, int _j);
 	virtual ~CaseGeneric();
+	//virtual char testFusion(CaseGeneric * case2)=0;
+	//virtual CaseGeneric* performFusion(CaseGeneric * case2,char direction)=0;
+	virtual std::string toString() const =0;
+
+protected:
+	CaseGeneric(CaseGeneric const &) = delete;
+	void operator=(CaseGeneric const &x) = delete;
 	virtual void Print(std::ostream& O) const = 0;
-	virtual bool FusionWith(CaseGeneric & case2,bool justTest)=0;
+
 	friend std::ostream& operator <<(std::ostream& O, const CaseGeneric& B);
 
 };
