@@ -23,7 +23,7 @@ public:
 
 	CaseGeneric(int _i, int _j);
 	virtual ~CaseGeneric();
-	//virtual char testFusion(CaseGeneric * case2)=0;
+	//virtual char testFusion(CaseGeneric * case2,bool firstCall)=0;
 	//virtual CaseGeneric* performFusion(CaseGeneric * case2,char direction)=0;
 	virtual std::string toString() const =0;
 

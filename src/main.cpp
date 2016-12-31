@@ -10,7 +10,6 @@
 
 void playSokoban(const char * nameFile){
 
-	std::cout<<"fichier "<<nameFile<<std::endl;
 	PlateauSokoban * pSokoban;
 	if(nameFile!=nullptr){
 		pSokoban=PlateauSokoban::readFile(nameFile);
@@ -47,7 +46,7 @@ void playTakinInt(){
     vector<int> v { 2,7,0,10,5,1,4,8,4,9 };
     pTakinInt.initPlateau(v);
     pTakinInt.setBlank(1,0);
-    pTakinInt.setBlankCaseAtTheEnd();
+    pTakinInt.setModeBlankCaseAtTheEnd();
     pTakinInt.setGameMode(true);
     //pTakinInt.StartModeTerminal();
     display<CaseTakin<int>> affichage(pTakinInt,80);
@@ -61,24 +60,29 @@ void playTakinChar(){
     	'x','s','a','b','p' ,'w','y','q','h'};
     pTakinInt.initPlateau(v);
     pTakinInt.setBlank(0,2);
-    pTakinInt.setBlankCaseAtTheEnd();
+    pTakinInt.setModeBlankCaseAtTheEnd();
     pTakinInt.setGameMode(true);
     pTakinInt.StartModeTerminal();
 }
 
 void play2048(){
 
-	Plateau2048 pl2048(6,6);
+	Plateau2048 pl2048(5,5);
 	pl2048.initPlateau();
 	pl2048.setGameMode(true);
-	pl2048.recursive=false;
+	pl2048.setModeRecursive(false);
+
+
 
 
 	Case2048 *a = new Case2048Destroy(4,0);
+	//CaseGeneric * tmp=pl2048.plateau[4][0];
 
-	CaseGeneric * tmp=pl2048.plateau[4][0];
-	pl2048.plateau[4][0]=a;
-	delete tmp;
+	pl2048.setRandomEmptyCase(a);
+
+	//pl2048.plateau[4][0]=a;
+	//delete tmp;
+
 	/*
 
 	//pl2048.plateau[1][0]->valeur=12;
@@ -101,14 +105,10 @@ const Case2048 Case2048::operator+(const Case2048 &other) const {
 */
 int main(int argc, char* argv[]) {
    if(argc>1){
-	   playSokoban(argv[1]);
+	   //playSokoban(argv[1]);
    }
 
 
-
-   //playTakinInt();
-   //playTakinChar();
-   playSokoban();
 /*
     std::cout<<"bonjour2"<<std::endl;
 
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
     //playTakinChar();
     //playSokoban();
     //playTakinInt();
-    //play2048();
+    play2048();
 
 /*
     Case2048 * a =new Case2048(3,4);

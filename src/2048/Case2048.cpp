@@ -69,7 +69,7 @@ DoublePointer<Case2048>* Case2048::performFusion(Case2048 * case2,char direction
 }
 
 
-char Case2048::testFusion(Case2048 * case2) {
+char Case2048::testFusion(Case2048 * case2,bool firstCall) {
 
 	if (typeid(*case2) == typeid(Case2048)) {
 		Case2048* v = dynamic_cast<Case2048*>(case2);
@@ -84,7 +84,7 @@ char Case2048::testFusion(Case2048 * case2) {
 		}
 	} else {
 		std::cout << "un inconnu 2048 dans 2048" << std::endl;
-		if(case2->testFusion(this)=='l'){
+		if(firstCall && case2->testFusion(this,false)=='l'){
 			return 'r';
 		}else{
 			return ' ';

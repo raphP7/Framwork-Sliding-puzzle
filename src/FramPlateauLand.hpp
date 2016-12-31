@@ -62,13 +62,16 @@ protected:
 	bool modeGame;// si TRUE -> utlisateur | FALSE -> automatique
 	bool isJeuxPersonnage; // si TRUE -> mode case qui se deplace | FALSE -> jeux autre ( exemple 2048 )
 
+	bool recursive;//False by default
+
 	FramPlateauLand(int sizeI, int sizeJ,bool _isJeuxPersonnage);
 	FramPlateauLand(FramPlateauLand const &) = delete;
 	void operator=(FramPlateauLand const &x) = delete;
 
     void doSwap(int i2,int j2);
-    bool doDirectionalSWIPE(char direction,bool recursive,bool justTest=false);
+    bool doDirectionalSWIPE(char direction,bool justTest=false);
     T* getRandomEmptyCase();
+
 
 	virtual bool performAction(int xArriv=0,int yArriv=0,char direction=0)=0;
 
@@ -124,6 +127,8 @@ public:
 	int PlateauSizeJ;
 	vector<vector<T*> >plateau;
 
+	void setRandomEmptyCase(T* newCase);
+
     virtual ~FramPlateauLand();
     void affiche();
 	void StartModeTerminal();
@@ -160,11 +165,18 @@ public:
 	bool getModeTerminal() const{
 		return modeTerminal;
 	}
-
+	void setModeTerminal(bool _modeTerminal){
+		modeTerminal=_modeTerminal;
+	}
+	bool getModeRecursive() const{
+		return recursive;
+	}
+	void setModeRecursive(bool _recursive){
+		recursive=_recursive;
+	}
     bool getGameMode() const{
         return modeGame;
     }
-
     void setGameMode(bool _modeGame){
         modeGame=_modeGame;
     }

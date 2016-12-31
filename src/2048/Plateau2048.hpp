@@ -15,7 +15,7 @@ static vector<int> DEFAULT_VECTOR;
 class Plateau2048: public FramPlateauLand<Case2048> {
 
 public:
-	bool recursive;
+
 	Plateau2048(int sizeI, int sizeJ);
 	virtual void initPlateau(vector<int> contenuJeu = DEFAULT_VECTOR);
 

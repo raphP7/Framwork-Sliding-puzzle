@@ -29,7 +29,7 @@ template<class T> void PlateauTakin<T>::setBlank(int i, int j) {
 		this->PositionYPersonnage = j;
 	}
 }
-template<class T> void PlateauTakin<T>::setBlankCaseAtTheEnd() {
+template<class T> void PlateauTakin<T>::setModeBlankCaseAtTheEnd() {
 	BlankCaseAtTheEnd = true;
 }
 

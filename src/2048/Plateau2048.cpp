@@ -9,11 +9,10 @@
 
 Plateau2048::Plateau2048(int sizeI, int sizeJ) :
 		FramPlateauLand<Case2048>(sizeI, sizeJ,false) {
-	recursive = false;
 }
 
 char Plateau2048::isFusionnable(Case2048 * case1, Case2048 * case2)const {
-	return case1->testFusion(case2);
+	return case1->testFusion(case2,true);
 }
 DoublePointer<Case2048>* Plateau2048::applyFusion(Case2048 * case1, Case2048 * case2,char direction) {
 	//cout<<"fusion de "<<case1->i<<" "<<case1->j<<" et "<<case2->i<<" "<<case2->j<<endl;
@@ -76,8 +75,8 @@ bool Plateau2048::isGameEnd() {
 	 cout<<"l possible ?"<<doDirectionalSWIPE('l',false ,true) <<endl;
 	 */
 
-	return !(doDirectionalSWIPE('i', recursive, true)
-			|| doDirectionalSWIPE('j', recursive, true)
-			|| doDirectionalSWIPE('k', recursive, true)
-			|| doDirectionalSWIPE('l', recursive, true));
+	return !(doDirectionalSWIPE('i', true)
+			|| doDirectionalSWIPE('j', true)
+			|| doDirectionalSWIPE('k', true)
+			|| doDirectionalSWIPE('l', true));
 }

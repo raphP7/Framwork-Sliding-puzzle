@@ -46,6 +46,7 @@ public:
     	return EmptyCase;
     }
 
+
 	friend bool operator<(CaseTakin<T> const &a, CaseTakin<T> const& b) {
 		if (a.EmptyCase || b.EmptyCase) {
 			return true;

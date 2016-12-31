@@ -10,6 +10,7 @@
 template<class T> display<T>::display(FramPlateauLand<T> & plateau,int sizeBlock) :
 		plateau(plateau) {
 
+	plateau.setModeTerminal(false);//on est en mode Window
 	sizeblock=sizeBlock;
 	speedGame=0;
 	score = 0;

@@ -23,7 +23,7 @@ public:
 
 	virtual std::string toString() const;
 
-	virtual char testFusion(Case2048 * case2);
+	virtual char testFusion(Case2048 * case2,bool firstCall);
 	virtual DoublePointer<Case2048>* performFusion(Case2048 * case2,char direction);
 
 };

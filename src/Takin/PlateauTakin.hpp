@@ -22,7 +22,7 @@ public:
 
 	void setBlank(int i, int j);
 
-	void setBlankCaseAtTheEnd();
+	void setModeBlankCaseAtTheEnd();
 private:
 
 	bool AlreadySetBlankCase;

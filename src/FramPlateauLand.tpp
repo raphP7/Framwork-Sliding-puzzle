@@ -14,8 +14,7 @@ template<class T> bool FramPlateauLand<T>::doAction(char direction) {
 	int yArriv = -1;
 
 	if (isJeuxPersonnage) {
-		this->getArrival_from_Direction_of_Personnage(&xArriv, &yArriv,
-				direction);
+		this->getArrival_from_Direction_of_Personnage(&xArriv, &yArriv,direction);
 		if (!this->testArrivalPositionForPersonnage(xArriv, yArriv)) {
 			return false;
 		}
@@ -124,7 +123,7 @@ template<class T> bool FramPlateauLand<T>::testArrivalPositionForPersonnage(
 
 	//hors du terrain
 	if (xArriv < 0 || yArriv < 0 || xArriv > sizeMaxI || yArriv > sizeMaxJ) {
-		if (this->modeGame) {
+		if (this->modeGame && this->modeTerminal) {
 			cout << "valeur INCORRECT ou Mouvement Interdit\n" << endl;
 
 		}
@@ -134,7 +133,7 @@ template<class T> bool FramPlateauLand<T>::testArrivalPositionForPersonnage(
 	}
 }
 
-template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,bool recursive,bool justTest){
+template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,bool justTest){
 
 	bool onMoveDone=false;
 	int LimiteJ;
@@ -153,12 +152,16 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 				//cout<<"AVANT BOUCLE\nvaleur i:"<<i<<" |j: "<<tmpJ<<endl;
 
 				do{
-					cout<<"DANS BOUCLE"<<endl;
-					cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
+					//cout<<"DANS BOUCLE"<<endl;
+					//cout<<"valeur i:"<<i<<" |j: "<<tmpJ<<endl<<"--------"<<endl;
 
 					if(tmpJ>=LimiteJ){//limite a droite
 						canMove=false;
 					}else{
+
+						if(plateau[i][tmpJ]==nullptr){
+							cout<<"ATTENTION NULL"<<endl;
+						}
 
 						//direction va nous dire dans quel sens on peut demande une fusion au type des cases
 						char direction=' ';
@@ -173,35 +176,30 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 									 * Dans le cadre de la fusion Si la deuxieme case n'est pas vide
 									 * alors c'est la nouvelle borne dans le cas NON recursif
 									 */
-									LimiteJ--;
+									//LimiteJ--;
+									LimiteJ=tmpJ;
 								}
 								//applique la fusion dans la direction des types des cases
 								DoublePointer<T>*result = applyFusion(plateau[i][tmpJ],plateau[i][tmpJ+1],direction);
 
 								if(result!=nullptr){
 
-									T* tmp=plateau[i][tmpJ];
-									cout<<"Pointeur vector AVANT : "<<plateau[i][tmpJ]<<endl;
-									plateau[i][tmpJ]=result->a;
-									cout<<"Pointeur tmp : "<<tmp<<endl;
-									cout<<"Pointeur a : "<<result->a<<endl;
-									cout<<"Pointeur vector APRES : "<<plateau[i][tmpJ]<<endl;
-
-									if (tmp != nullptr) {
-										cout<<"delete"<<endl;
-										//delete tmp;
+									if(result->a!=nullptr){
+										T * tmp=plateau[i][tmpJ];
+										//cout<<"Pointeur vector A AVANT : "<<plateau[i][tmpJ]<<endl;
+										plateau[i][tmpJ]=result->a;
+										//cout<<"Pointeur vector A APRES : "<<plateau[i][tmpJ]<<endl;
+										delete tmp;
 									}
 
-									T* tmp2 = plateau[i][tmpJ+1];
-									plateau[i][tmpJ+1] = result->b;
-									if(tmp2!=nullptr){
-										//delete tmp2;
+									if(result->b!=nullptr){
+										T* tmp2 = plateau[i][tmpJ+1];
+										//cout<<"Pointeur vector B AVANT : "<<plateau[i][tmpJ+1]<<endl;
+										plateau[i][tmpJ+1] = result->b;
+										//cout<<"Pointeur vector B APRES : "<<plateau[i][tmpJ+1]<<endl;
+										delete tmp2;
 									}
-
-
 									delete result;
-
-									cout<<"delete apres result "<<endl;
 								}
 
 							}else{
@@ -240,16 +238,17 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 						else if((direction=isFusionnable(plateau[i][tmpJ],plateau[i][tmpJ-1]))!=' '){
 							if(!justTest){
 								if (!isCaseEmpty(plateau[i][tmpJ-1])) {//&&recursive
-									LimiteJ++;
+									//LimiteJ++;
+									LimiteJ=tmpJ;
 								}
 								DoublePointer<T>*result=applyFusion(plateau[i][tmpJ],plateau[i][tmpJ-1],direction);
 								if(result!=nullptr){
 									T* tmp=plateau[i][tmpJ];
 									plateau[i][tmpJ]=result->a;
-									//delete tmp;
+									delete tmp;
 									T* tmp2 = plateau[i][tmpJ-1];
 									plateau[i][tmpJ-1] = result->b;
-									//delete tmp2;
+									delete tmp2;
 									delete result;
 								}
 							}
@@ -286,16 +285,17 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 						else if((direction=isFusionnable(plateau[tmpI][j],plateau[tmpI-1][j]))!=' '){
 							if (!justTest) {
 								if (!isCaseEmpty(plateau[tmpI-1][j])) {//&&recursive
-									LimiteI++;
+									//LimiteI++;
+									LimiteI=tmpI;
 								}
 								DoublePointer<T>*result=applyFusion(plateau[tmpI][j],plateau[tmpI-1][j],direction);
 								if(result!=nullptr){
 									T* tmp=plateau[tmpI][j];
 									plateau[tmpI][j]=result->a;
-									//delete tmp;
+									delete tmp;
 									T* tmp2 = plateau[tmpI-1][j];
 									plateau[tmpI-1][j] = result->b;
-									//delete tmp2;
+									delete tmp2;
 									delete result;
 
 								}
@@ -334,7 +334,9 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 
 							if (!justTest) {
 								if (!isCaseEmpty(plateau[tmpI+1][j])) {//&&recursive
-									LimiteI--;
+									//LimiteI--;
+									LimiteI=tmpI;
+
 								}
 
 								DoublePointer<T>*result=applyFusion(plateau[tmpI][j],plateau[tmpI+1][j],direction);
@@ -342,10 +344,10 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 
 									T* tmp=plateau[tmpI][j];
 									plateau[tmpI][j]=result->a;
-									//delete tmp;
+									delete tmp;
 									T* tmp2 = plateau[tmpI+1][j];
 									plateau[tmpI+1][j] = result->b;
-									//delete tmp2;
+									delete tmp2;
 									delete result;
 
 								}
@@ -388,6 +390,39 @@ template<class T> char FramPlateauLand<T>::getRandomDirection() {
 		return 'k';
 	}
 }
+
+template<class T> void FramPlateauLand<T>::setRandomEmptyCase(T* newCase) {
+	iterDoubleVector<T> monIter(this->plateau);
+
+		//list all the empty cases
+		vector<T*> vecFreeCase;
+		T * tmp;
+		while (monIter.hasnext()) {
+			tmp = monIter.next();
+			if (tmp->empty) {
+				vecFreeCase.push_back(tmp);
+			}
+		}
+		int sizeMax = vecFreeCase.size();
+
+		if (sizeMax == 0) {
+			return;
+		}
+		//select by random the case with a new value
+		random_device seeder;
+		mt19937 engine(seeder());
+		uniform_int_distribution<int> dist(0, sizeMax - 1);
+		int randomPosition = dist(engine);
+
+		T * oldCase=vecFreeCase[randomPosition];
+		cout<<"Pointeur in vector : DURING "<<vecFreeCase[0]<<endl;
+		cout<<"Pointeur object newCase : "<<newCase<<endl;
+		vecFreeCase[1]=newCase;
+		cout<<"Pointeur in vector : DURING AFTER "<<vecFreeCase[1]<<endl;
+		//delete oldCase;
+		std::cout<<"end de setRandomEmptyCase"<<std::endl;
+}
+
 
 template<class T> T* FramPlateauLand<T>:: getRandomEmptyCase() {
 	iterDoubleVector<T> monIter(this->plateau);
@@ -469,7 +504,7 @@ template<class T> FramPlateauLand<T>::FramPlateauLand(int sizeI, int sizeJ,bool 
 		}
 	}
 	modeTerminal = false;
-
+	recursive=false;
 	modeGame = true;
 	isJeuxPersonnage = _isJeuxPersonnage;
 	PlateauSizeI = sizeI;
