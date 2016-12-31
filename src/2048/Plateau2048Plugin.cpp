@@ -35,7 +35,7 @@ void Plateau2048Plugin::afterAction(Case2048 * newCase){
 	if(random2or4==0){
 		tmp=new Case2048Destroy(0,0);
 	}
-	else if(random2or4>-1){
+	else if(random2or4==1){
 		tmp=new Case2048Negative(0,0);
 		tmp->valeur=valeurSelect*(-1);
 	}else{

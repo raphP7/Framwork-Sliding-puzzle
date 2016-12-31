@@ -70,7 +70,7 @@ void play2048(){
 
 	Plateau2048 pl2048(5,5);
 	pl2048.initPlateau();
-	pl2048.setGameMode(true);
+	pl2048.setGameMode(false);
 	pl2048.setModeRecursive(false);
 	display<Case2048>  affichage=display<Case2048>(pl2048,70);
 	affichage.StartModeWindow();
