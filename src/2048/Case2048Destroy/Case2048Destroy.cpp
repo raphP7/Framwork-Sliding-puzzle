@@ -28,17 +28,8 @@ std::string Case2048Destroy::toString() const {
 
 char Case2048Destroy::testFusion(Case2048 * case2,bool firstCall) {
 
-	if (typeid(*case2) == typeid(Case2048Destroy)
-			|| typeid(*case2) == typeid(Case2048)) {
-			return 'l';
-	} else {
-		cout << "un inconnu 2048 dans Case2048Destroy" << endl;
-		if(firstCall && case2->testFusion(this,false)!=' '){
-			return 'r';
-		}else{
-			return ' ';
-		}
-	}
+	return 'l';
+
 }
 
 DoublePointer<Case2048>* Case2048Destroy::performFusion(Case2048 *case2,
@@ -47,6 +38,7 @@ DoublePointer<Case2048>* Case2048Destroy::performFusion(Case2048 *case2,
 	Case2048 * caseVide = new Case2048(this->i, this->j);
 	Case2048 * caseVide2 = new Case2048(case2->i, case2->j);
 	Case2048 * caseThis = new Case2048Destroy(case2->i,case2->j);
+	caseThis->empty=false;
 
 	if (case2->empty) {
 		cout << "destroy se deplace sur une empty" << endl;

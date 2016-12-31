@@ -1,5 +1,6 @@
 #include"FramPlateauLand.hpp"
 #include"2048/Case2048.hpp"
+#include"2048/Plateau2048Plugin.hpp"
 #include"2048/Plateau2048.hpp"
 #include"2048/Case2048Destroy/Case2048Destroy.hpp"
 #include"Takin/PlateauTakin.hpp"
@@ -71,32 +72,18 @@ void play2048(){
 	pl2048.initPlateau();
 	pl2048.setGameMode(true);
 	pl2048.setModeRecursive(false);
+	display<Case2048>  affichage=display<Case2048>(pl2048,70);
+	affichage.StartModeWindow();
+}
 
+void play2048Plugin(){
+	Plateau2048Plugin pl2048PlugIn(5,5);
+	pl2048PlugIn.initPlateau();
+	pl2048PlugIn.setGameMode(true);
+	pl2048PlugIn.setModeRecursive(false);
 
-
-	cout<<"Pointeur in vector : AVANT APPEL "<<pl2048.plateau[0][0]<<endl;
-
-	Case2048 *a = new Case2048Destroy(0,0);
-	CaseGeneric * tmp=pl2048.plateau[4][0];
-
-	pl2048.setRandomEmptyCase(a);
-
-	cout<<"Pointeur in vector : APRES APPEL "<<pl2048.plateau[0][0]<<endl;
-
-	//pl2048.plateau[4][0]=a;
-	//delete tmp;
-
-	/*
-
-	//pl2048.plateau[1][0]->valeur=12;
-	pl2048.plateau[0][1]->empty=false;
-	pl2048.plateau[0][1]->valeur=2;
-
-	//pl2048.StartModeTerminal();
-	 */
-	display<Case2048> * affichage=new display<Case2048>(pl2048,70);
-	affichage->StartModeWindow();
-	delete affichage;
+	display<Case2048>  affichage=display<Case2048>(pl2048PlugIn,70);
+	affichage.StartModeWindow();
 }
 
 /*
@@ -137,7 +124,8 @@ int main(int argc, char* argv[]) {
     //playTakinChar();
     //playSokoban();
     //playTakinInt();
-    play2048();
+    //play2048();
+    play2048Plugin();
 
 /*
     Case2048 * a =new Case2048(3,4);

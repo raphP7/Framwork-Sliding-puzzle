@@ -22,7 +22,7 @@ template<class T> bool FramPlateauLand<T>::doAction(char direction) {
 
 	if (this->performAction(xArriv, yArriv, direction)) {
 
-		afterAction();
+
 		return true;
 	} else {
 		if (modeGame && this->modeTerminal) {
@@ -48,6 +48,7 @@ template<class T> void FramPlateauLand<T>::StartModeTerminal() {
 			}
 			moveNotDone = !doAction(direction);
 		}
+		afterAction();
 		this->affiche();
 	} while (!this->isGameEnd());
 	cout << "JEUX FINI" << endl;
@@ -413,7 +414,12 @@ template<class T> void FramPlateauLand<T>::setRandomEmptyCase(T* newCase) {
 	int y=vecFreeCase[randomPosition].y;
 	T * oldCase=this->plateau[x][y];
 	this->plateau[x][y]=newCase;
+	newCase->i=x;
+	newCase->j=y;
 	delete oldCase;
+
+
+	cout<<"nouvelle CASE : "<<newCase->valeur<< " Position x:"<<x<<"|y:"<<y<<endl;
 }
 
 

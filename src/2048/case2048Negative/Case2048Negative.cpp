@@ -16,63 +16,45 @@ Case2048Negative::~Case2048Negative() {
 	std::cout<<"delete 2048 NEGATIVE de "<<i<<" "<<j<<std::endl;
 }
 
-void Case2048Negative::Print(std::ostream& O) const {
-	O <<"-"<<valeur << " ";
-}
-
-std::string Case2048Negative::toString() const {
-	if(empty){
-		return std::string();
-	}else{
-		return "-"+std::to_string(valeur);
-	}
-}
-
 char Case2048Negative::testFusion(Case2048 * case2, bool firstCall) {
-	Case2048* v;
-	if (typeid(*case2) == typeid(Case2048)) {
-		v = dynamic_cast<Case2048*>(case2);
-	} else if ((typeid(*case2) == typeid(Case2048))) {
-		v = dynamic_cast<Case2048Negative*>(case2);
-	} else {
-		std::cout << "un inconnu 2048 dans 2048" << std::endl;
+
+	if (typeid(*case2) == typeid(Case2048) || (typeid(*case2) == typeid(Case2048Negative))) {
+		if (this->empty && case2->empty) {
+				return ' ';
+			}
+			if (case2->empty || (this->valeur == case2->valeur)) {
+				return 'l';
+			} else {
+				return ' ';
+			}
+	}
+	else {
+		std::cout << "un inconnu 2048 dans 2048Negative" << std::endl;
 		if (firstCall && case2->testFusion(this, false) == 'l') {
 			return 'r';
 		} else {
 			return ' ';
 		}
 	}
-	if (this->empty && v->empty) {
-		return ' ';
-	}
-	if (v->empty || (this->valeur == v->valeur)) {
-		return 'l';
-	} else {
-		return ' ';
-	}
-
 }
 
 DoublePointer<Case2048>* Case2048Negative::performFusion(Case2048 *case2,char direction) {
-	if (typeid(*case2) == typeid(Case2048)) {
-		//Case2048* v = dynamic_cast<Case2048*>(case2);
 
-		if (direction == 'l') {
-			case2->valeur =0;
-			case2->empty = true;
-			case2->i = this->i;
-			case2->j = this->j;
-			this->valeur = 0;
-			this->empty = true;
-		} else {
-			this->valeur += case2->valeur;
-			this->empty = false;
-			this->i = case2->i;
-			this->j = case2->j;
-			case2->valeur = 0;
-			case2->empty = true;
-		}
-		return nullptr;
+	Case2048 * caseVide = new Case2048(this->i, this->j);
+	Case2048 * caseVide2 = new Case2048(case2->i, case2->j);
+	Case2048 * caseThis = new Case2048Negative(case2->i,case2->j);
+	caseThis->valeur=this->valeur;
+	caseThis->empty=false;
+
+	if (case2->empty) {
+		cout << "Negative se deplace sur une empty" << endl;
+		return new DoublePointer<Case2048>(caseVide, caseThis);
+	}
+
+	if (typeid(*case2) == typeid(Case2048Negative)) {
+		caseThis->valeur+=case2->valeur;
+		cout << "Negative FUSIONNE" << endl;
+		return new DoublePointer<Case2048>(caseVide, caseThis);
 
 	} else {
 		if (direction == 'r') {

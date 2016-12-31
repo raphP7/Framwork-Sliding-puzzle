@@ -10,6 +10,8 @@
 
 #include "../FramPlateauLand.hpp"
 #include <SFML/Graphics.hpp>
+#include <chrono>
+#include <thread>
 
 
 template<typename T> class display {

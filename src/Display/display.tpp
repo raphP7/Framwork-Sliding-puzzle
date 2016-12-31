@@ -188,6 +188,7 @@ template<class T> void display<T>::modeAuto() {
 			commande = plateau.getRandomDirection();
 
 			if (this->plateau.doAction(commande)) {
+				this->plateau.afterAction();
 				if (plateau.isGameEnd()) {
 					showGameOver = true;
 				}
@@ -212,8 +213,8 @@ template<class T> void display<T>::modeGamer() {
 	bool moveDone = true;
 	char commande = ' ';
 
-	while (window->isOpen()) {
 
+	while (window->isOpen()) {
 		refreshWindow();
 		sf::Event event;
 		if(window->waitEvent(event)) {
@@ -241,6 +242,10 @@ template<class T> void display<T>::modeGamer() {
 				}
 				if (commande != ' ' &&!showGameOver) {
 					if (this->plateau.doAction(commande)) {
+						refreshWindow();
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+						this->plateau.afterAction();
+						refreshWindow();
 						moveDone = true;
 					}
 				}
