@@ -60,9 +60,33 @@ PlateauSokoban* PlateauSokoban::readFile(const char * nameFile) {
 		++lines_count;
 	}
 
-	std::cout<<"TAILLE PLATEAU "<<lines_count<<" et "<<biggerSizeLine<<std::endl;
+	aFile.close();
 
-	return nullptr;
+
+	std::cout<<"TAILLE PLATEAU "<<lines_count<<" et "<<biggerSizeLine<<std::endl;
+	vector<char> initVector;
+	ifstream aFile2(nameFile);
+
+	int cmpTotal=0;
+	while (std::getline(aFile2, line)) {
+
+		for(int i =0; i<biggerSizeLine;i++){
+			if(i<line.size()){
+				initVector.push_back(line.at(i));
+			}else{
+				initVector.push_back(' ');
+			}
+			cmpTotal++;
+		}
+	}
+
+	std::cout<<"NB element "<<cmpTotal<<std::endl;
+
+	PlateauSokoban * pSokoban=new PlateauSokoban(lines_count,biggerSizeLine);
+
+	pSokoban->initPlateau(initVector);
+
+	return pSokoban;
 }
 
 void PlateauSokoban::initPlateau(vector<char> & contenuJeu){

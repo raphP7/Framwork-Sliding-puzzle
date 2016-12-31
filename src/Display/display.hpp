@@ -19,6 +19,10 @@ public:
 	virtual ~display();
 	void StartModeWindow();
 
+	sf::Color * windowBGColour;
+	sf::Color * gridBGColour;
+	sf::Color * textColour;
+
 private:
 	void refreshWindow();
 	void quitOrGameOver(sf::Event &event);
@@ -31,9 +35,6 @@ protected:
 	FramPlateauLand<T> & plateau;
 	sf::RenderWindow * window;
 	sf::Font * font;
-	sf::Color * windowBGColour;
-	sf::Color * gridBGColour;
-	sf::Color * textColour;
 	sf::RectangleShape * gridBackgroundRect;
 	sf::RectangleShape * gameOverBackground;
 	sf::RectangleShape * gridTile;

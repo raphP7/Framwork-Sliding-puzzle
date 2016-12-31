@@ -49,8 +49,8 @@ template<class T> display<T>::display(FramPlateauLand<T> & plateau,int sizeBlock
 	tileText=new sf::Text();
 
 	windowBGColour= new sf::Color (250, 248, 239, 255);
-		gridBGColour= new sf::Color (187, 173, 160, 255);
-		textColour= new sf::Color (67, 53, 40, 255);
+	gridBGColour= new sf::Color (187, 173, 160, 255);
+	textColour= new sf::Color (67, 53, 40, 255);
 
 }
 

@@ -17,7 +17,8 @@ void playSokoban(const char * nameFile){
 	}
 	if(pSokoban!=nullptr){
 		pSokoban->setGameMode(true);
-		display<CaseSokoban> affichage(*pSokoban,60);
+		display<CaseSokoban> affichage(*pSokoban,45);
+		affichage.gridBGColour=new sf::Color (250, 248, 239, 255);
 		affichage.StartModeWindow();
 	}
 
