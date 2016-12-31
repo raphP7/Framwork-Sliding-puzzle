@@ -16,6 +16,13 @@
 
 using namespace std;
 
+class TwoValue{
+public:
+	int x;
+	int y;
+	TwoValue(int _x,int _y):x(_x),y(_y){}
+};
+
 template<class T> class iterDoubleVector{
     public:
 

@@ -15,17 +15,12 @@ using namespace std;
 
 class Case2048Destroy: public Case2048 {
 
-private:
-
-
 public:
-	virtual void Print(std::ostream& O) const;
 	Case2048Destroy(int _i, int _j);
 	virtual ~Case2048Destroy();
 	std::string toString() const;
-
+	virtual void Print(std::ostream& O) const;
 	virtual char testFusion(Case2048 * case2,bool firstCall);
-
 	virtual DoublePointer<Case2048>* performFusion(Case2048 *case2,char direction);
 
 };

@@ -46,30 +46,13 @@ DoublePointer<Case2048>* Case2048Destroy::performFusion(Case2048 *case2,
 
 	Case2048 * caseVide = new Case2048(this->i, this->j);
 	Case2048 * caseVide2 = new Case2048(case2->i, case2->j);
-	Case2048 * caseThis = new Case2048Destroy(this->i,this->j);
+	Case2048 * caseThis = new Case2048Destroy(case2->i,case2->j);
 
 	if (case2->empty) {
 		cout << "destroy se deplace sur une empty" << endl;
-		if(direction=='l'){
-			cout<<"l"<<endl;
-			return new DoublePointer<Case2048>(caseVide, caseThis);
-		}else{
-			cout<<"r"<<endl;
-			this->i=case2->i;
-			this->j=case2->j;
-			return new DoublePointer<Case2048>(caseThis, caseVide);
-		}
-
+		return new DoublePointer<Case2048>(caseVide, caseThis);
 	} else {
-		//cout << "une valeur SE DEPLACE SUR DESTROY" << endl;
-		if(direction=='l'){
-			cout<<"l"<<endl;
-			return new DoublePointer<Case2048>(caseVide,caseVide2);
-		}else{
-
-			return new DoublePointer<Case2048>(caseVide2, caseVide);
-		}
-
-
+		cout << "destroy detruit" << endl;
+		return new DoublePointer<Case2048>(caseVide,caseVide2);
 	}
 }

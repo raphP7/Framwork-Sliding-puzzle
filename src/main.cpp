@@ -74,11 +74,14 @@ void play2048(){
 
 
 
+	cout<<"Pointeur in vector : AVANT APPEL "<<pl2048.plateau[0][0]<<endl;
 
-	Case2048 *a = new Case2048Destroy(4,0);
-	//CaseGeneric * tmp=pl2048.plateau[4][0];
+	Case2048 *a = new Case2048Destroy(0,0);
+	CaseGeneric * tmp=pl2048.plateau[4][0];
 
 	pl2048.setRandomEmptyCase(a);
+
+	cout<<"Pointeur in vector : APRES APPEL "<<pl2048.plateau[0][0]<<endl;
 
 	//pl2048.plateau[4][0]=a;
 	//delete tmp;

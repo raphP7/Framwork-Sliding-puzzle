@@ -159,10 +159,6 @@ template<class T> bool FramPlateauLand<T>::doDirectionalSWIPE(char direction,boo
 						canMove=false;
 					}else{
 
-						if(plateau[i][tmpJ]==nullptr){
-							cout<<"ATTENTION NULL"<<endl;
-						}
-
 						//direction va nous dire dans quel sens on peut demande une fusion au type des cases
 						char direction=' ';
 						if(isCaseEmpty(plateau[i][tmpJ])){//case vide , ne ce deplace pas
@@ -391,36 +387,33 @@ template<class T> char FramPlateauLand<T>::getRandomDirection() {
 	}
 }
 
+/**
+ * Ajouter dans un emplacement vide , une nouvelle case de type hérité de celui d'instance du Framework
+ */
 template<class T> void FramPlateauLand<T>::setRandomEmptyCase(T* newCase) {
 	iterDoubleVector<T> monIter(this->plateau);
-
-		//list all the empty cases
-		vector<T*> vecFreeCase;
-		T * tmp;
-		while (monIter.hasnext()) {
-			tmp = monIter.next();
-			if (tmp->empty) {
-				vecFreeCase.push_back(tmp);
+	vector<TwoValue> vecFreeCase;
+	for(int i =0;i<PlateauSizeI;i++){
+		for(int j =0;j<PlateauSizeJ;j++){
+			if(this->plateau[i][j]->empty){
+				vecFreeCase.push_back(TwoValue(i,j));
 			}
 		}
-		int sizeMax = vecFreeCase.size();
-
-		if (sizeMax == 0) {
-			return;
-		}
-		//select by random the case with a new value
-		random_device seeder;
-		mt19937 engine(seeder());
-		uniform_int_distribution<int> dist(0, sizeMax - 1);
-		int randomPosition = dist(engine);
-
-		T * oldCase=vecFreeCase[randomPosition];
-		cout<<"Pointeur in vector : DURING "<<vecFreeCase[0]<<endl;
-		cout<<"Pointeur object newCase : "<<newCase<<endl;
-		vecFreeCase[1]=newCase;
-		cout<<"Pointeur in vector : DURING AFTER "<<vecFreeCase[1]<<endl;
-		//delete oldCase;
-		std::cout<<"end de setRandomEmptyCase"<<std::endl;
+	}
+	int sizeMax = vecFreeCase.size();
+	if (sizeMax == 0) {
+		return;
+	}
+	//select by random the case with a new value
+	random_device seeder;
+	mt19937 engine(seeder());
+	uniform_int_distribution<int> dist(0, sizeMax - 1);
+	int randomPosition = dist(engine);
+	int x=vecFreeCase[randomPosition].x;
+	int y=vecFreeCase[randomPosition].y;
+	T * oldCase=this->plateau[x][y];
+	this->plateau[x][y]=newCase;
+	delete oldCase;
 }
 
 

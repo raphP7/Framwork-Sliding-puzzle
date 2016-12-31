@@ -24,7 +24,6 @@ std::string Case2048::toString() const {
 	}else{
 		return std::to_string(valeur);
 	}
-
 }
 
 
@@ -41,15 +40,11 @@ DoublePointer<Case2048>* Case2048::performFusion(Case2048 * case2,char direction
 		if(direction=='l'){
 			case2->valeur += this->valeur;
 			case2->empty = false;
-			case2->i = this->i;
-			case2->j = this->j;
 			this->valeur = 0;
 			this->empty = true;
 		} else {
 			this->valeur += case2->valeur;
 			this->empty = false;
-			this->i = case2->i;
-			this->j = case2->j;
 			case2->valeur = 0;
 			case2->empty = true;
 		}
@@ -72,12 +67,12 @@ DoublePointer<Case2048>* Case2048::performFusion(Case2048 * case2,char direction
 char Case2048::testFusion(Case2048 * case2,bool firstCall) {
 
 	if (typeid(*case2) == typeid(Case2048)) {
-		Case2048* v = dynamic_cast<Case2048*>(case2);
+		//Case2048* v = dynamic_cast<Case2048*>(case2);
 
-		if (this->empty && v->empty) {
+		if (this->empty && case2->empty) {
 			return ' ';
 		}
-		if (v->empty || (this->valeur == v->valeur)) {
+		if (case2->empty || (this->valeur == case2->valeur)) {
 			return 'l';
 		} else {
 			return ' ';
