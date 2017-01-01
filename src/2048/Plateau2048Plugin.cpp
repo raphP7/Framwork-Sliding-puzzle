@@ -12,7 +12,7 @@ Plateau2048Plugin::Plateau2048Plugin(int sizeI, int sizeJ) :
 	Plateau2048(sizeI, sizeJ) {
 }
 
-void Plateau2048Plugin::afterAction(Case2048 * newCase){
+void Plateau2048Plugin::afterAction(){
 
 	cout<<"afterAction"<<endl;
 	Case2048 * tmp;

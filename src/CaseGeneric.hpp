@@ -20,7 +20,6 @@ public:
 	int i;
 	int j;
 
-
 	CaseGeneric(int _i, int _j);
 	virtual ~CaseGeneric();
 	//virtual char testFusion(CaseGeneric * case2,bool firstCall)=0;
@@ -31,7 +30,6 @@ protected:
 	CaseGeneric(CaseGeneric const &) = delete;
 	void operator=(CaseGeneric const &x) = delete;
 	virtual void Print(std::ostream& O) const = 0;
-
 	friend std::ostream& operator <<(std::ostream& O, const CaseGeneric& B);
 
 };

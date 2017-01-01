@@ -84,18 +84,18 @@ protected:
 
     virtual char isFusionnable(T * case1,T * case2)const{
     	//TODO EXCEPTION
-    	cerr<<"PAS BON isFusionnable"<<endl;
+    	cerr<<"You should REDIFINE isFusionnable"<<endl;
     	return false;
     }
 
     virtual bool isCaseEmpty(T const* case1){
     	//TODO EXCEPTION
-    	cerr<<"PAS BON isCaseEmpty"<<endl;
+    	cerr<<"You should REDIFINE isCaseEmpty"<<endl;
     	return false;
     }
     virtual DoublePointer<T>* applyFusion(T * case1,T * case2,char direction){
     	//TODO EXCEPTION
-    	cerr<<"PAS BON applyFusion"<<endl;
+    	cerr<<"You should REDIFINE applyFusion"<<endl;
     }
 
 	bool testArrivalPositionForPersonnage(int  xArriv, int  yArriv);
@@ -144,14 +144,17 @@ public:
 
     bool doAction(char direction);
 
-    virtual void afterAction(T * newCase=nullptr){
-
+    virtual void afterAction(){
+    	//TODO EXCEPTION
+    	cerr<<"You should REDIFINE afterAction"<<endl;
     }
 
+    /*
     virtual void initPlateau(vector<T> & contenuJeu){
-        	//TODO EXCEPTION
-            cerr<<"PAS BON initPlateau"<<endl;
+        //TODO EXCEPTION
+    	cerr<<"You should REDIFINE initPlateau"<<endl;
     }
+    */
     static void getArrival_from_Position_and_Direction(int xStart, int yStart, char direction,
         		int * xArriv, int * yArriv);
 

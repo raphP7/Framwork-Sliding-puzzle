@@ -29,7 +29,7 @@ bool Plateau2048::performAction(int xArriv,int yArriv,char direction){
 	return doDirectionalSWIPE(direction, recursive);
 }
 
-void Plateau2048::afterAction(Case2048 * newCase){
+void Plateau2048::afterAction(){
 	Case2048 * tmp=this->getRandomEmptyCase();
 
 	//select by random the case with a new value
@@ -49,7 +49,7 @@ void Plateau2048::afterAction(Case2048 * newCase){
 
 }
 
-void Plateau2048::initPlateau(vector<int> contenuJeu) {
+void Plateau2048::initPlateau() {
 
 	iterDoubleVector<Case2048> monIter(this->plateau);
 
