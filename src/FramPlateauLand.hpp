@@ -146,7 +146,7 @@ public:
 
     virtual void afterAction(){
     	//TODO EXCEPTION
-    	cerr<<"You should REDIFINE afterAction"<<endl;
+    	//cerr<<"You should REDIFINE afterAction"<<endl;
     }
 
     /*

@@ -1,6 +1,8 @@
 
 #ifndef DOUBLEPOINTER_HPP_
 #define DOUBLEPOINTER_HPP_
+
+#include <iostream>
 template<class T> class DoublePointer{
 public:
 	T *a;

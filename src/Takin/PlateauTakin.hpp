@@ -18,6 +18,7 @@ public:
 
 	virtual ~PlateauTakin();
 
+
 	virtual void initPlateau(vector<T> contenuJeu);
 
 	void setBlank(int i, int j);

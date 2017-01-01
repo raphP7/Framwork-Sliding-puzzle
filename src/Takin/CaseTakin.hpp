@@ -19,6 +19,7 @@ public:
 	T valeur;
 	bool EmptyCase;
 
+
 	CaseTakin(int _i, int _j);
 
 	virtual ~CaseTakin();

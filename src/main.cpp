@@ -7,7 +7,7 @@
 #include"Sokoban/PlateauSokoban.hpp"
 #include"Sokoban/CaseSokoban.hpp"
 #include "Display/display.hpp"
-#include <memory>
+//#include <memory>
 
 void playSokoban(const char * nameFile){
 
@@ -37,7 +37,7 @@ void playSokoban(){
     pSokoban.setGameMode(true);
     display<CaseSokoban> affichage(pSokoban,60);
     //pSokoban.StartModeTerminal();
-    cout<<"avant mode windows"<<endl;
+    affichage.gridBGColour=new sf::Color (250, 248, 239, 255);
     affichage.StartModeWindow();
 }
 
@@ -123,9 +123,9 @@ int main(int argc, char* argv[]) {
 
     //playTakinChar();
     //playSokoban();
-    //playTakinInt();
+    playTakinInt();
     //play2048();
-    play2048Plugin();
+    //play2048Plugin();
 
 /*
     Case2048 * a =new Case2048(3,4);
