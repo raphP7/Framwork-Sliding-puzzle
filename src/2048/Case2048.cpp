@@ -15,7 +15,7 @@ Case2048::Case2048(int _i, int _j,bool empty2) :
 }
 
 Case2048::~Case2048() {
-	std::cout<<"delete 2048 de "<<i<<" "<<j<<std::endl;
+	//std::cout<<"delete 2048 de "<<i<<" "<<j<<std::endl;
 }
 
 std::string Case2048::toString() const {
@@ -53,7 +53,7 @@ DoublePointer<Case2048>* Case2048::performFusion(Case2048 * case2,char direction
 	}else{
 		if(direction=='r'){
 			//TODO
-			std::cout<<"probleme performFusion"<<std::endl;
+			//std::cout<<"probleme performFusion"<<std::endl;
 			return nullptr;
 		}else{
 			return case2->performFusion(this,'r');
@@ -78,7 +78,7 @@ char Case2048::testFusion(Case2048 * case2,bool firstCall) {
 			return ' ';
 		}
 	} else {
-		std::cout << "un inconnu 2048 dans 2048" << std::endl;
+		//std::cout << "un inconnu 2048 dans 2048" << std::endl;
 		if(firstCall && case2->testFusion(this,false)=='l'){
 			return 'r';
 		}else{

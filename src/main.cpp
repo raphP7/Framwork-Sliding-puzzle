@@ -123,9 +123,9 @@ int main(int argc, char* argv[]) {
 
     //playTakinChar();
     //playSokoban();
-    playTakinInt();
+    //playTakinInt();
     //play2048();
-    //play2048Plugin();
+    play2048Plugin();
 
 /*
     Case2048 * a =new Case2048(3,4);

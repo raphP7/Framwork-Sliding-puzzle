@@ -10,7 +10,7 @@ public:
 	DoublePointer(T* _a , T* _b):a(_a),b(_b){
 	}
 	~DoublePointer(){
-		std::cout<<"delete de DoublePointer"<<std::endl;
+		//std::cout<<"delete de DoublePointer"<<std::endl;
 	}
 };
 

@@ -13,7 +13,7 @@ Case2048Negative::Case2048Negative(int _i, int _j) :
 }
 
 Case2048Negative::~Case2048Negative() {
-	std::cout<<"delete 2048 NEGATIVE de "<<i<<" "<<j<<std::endl;
+	//std::cout<<"delete 2048 NEGATIVE de "<<i<<" "<<j<<std::endl;
 }
 
 char Case2048Negative::testFusion(Case2048 * case2, bool firstCall) {
@@ -29,7 +29,7 @@ char Case2048Negative::testFusion(Case2048 * case2, bool firstCall) {
 			}
 	}
 	else {
-		std::cout << "un inconnu 2048 dans 2048Negative" << std::endl;
+		//std::cout << "un inconnu 2048 dans 2048Negative" << std::endl;
 		if (firstCall && case2->testFusion(this, false) == 'l') {
 			return 'r';
 		} else {
@@ -47,19 +47,19 @@ DoublePointer<Case2048>* Case2048Negative::performFusion(Case2048 *case2,char di
 	caseThis->empty=false;
 
 	if (case2->empty) {
-		cout << "Negative se deplace sur une empty" << endl;
+		//cout << "Negative se deplace sur une empty" << endl;
 		return new DoublePointer<Case2048>(caseVide, caseThis);
 	}
 
 	if (typeid(*case2) == typeid(Case2048Negative)) {
 		caseThis->valeur+=case2->valeur;
-		cout << "Negative FUSIONNE" << endl;
+		//cout << "Negative FUSIONNE" << endl;
 		return new DoublePointer<Case2048>(caseVide, caseThis);
 
 	} else {
 		if (direction == 'r') {
 			//TODO
-			std::cout << "probleme performFusion" << std::endl;
+			//std::cout << "probleme performFusion" << std::endl;
 			return nullptr;
 		} else {
 			return case2->performFusion(this, 'r');

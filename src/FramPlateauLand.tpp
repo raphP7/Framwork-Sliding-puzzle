@@ -419,7 +419,7 @@ template<class T> void FramPlateauLand<T>::setRandomEmptyCase(T* newCase) {
 	delete oldCase;
 
 
-	cout<<"nouvelle CASE : "<<newCase->valeur<< " Position x:"<<x<<"|y:"<<y<<endl;
+	//cout<<"nouvelle CASE : "<<newCase->valeur<< " Position x:"<<x<<"|y:"<<y<<endl;
 }
 
 

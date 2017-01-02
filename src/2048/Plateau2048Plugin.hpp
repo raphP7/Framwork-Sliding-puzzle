@@ -10,6 +10,7 @@
 #include "Case2048.hpp"
 #include "Case2048Destroy/Case2048Destroy.hpp"
 #include "case2048Negative/Case2048Negative.hpp"
+#include "case2048Operator/Case2048Operator.hpp"
 #include "Plateau2048.hpp"
 
 class Plateau2048Plugin:public Plateau2048{

@@ -15,7 +15,7 @@ Case2048Destroy::Case2048Destroy(int _i, int _j) :
 }
 
 Case2048Destroy::~Case2048Destroy() {
-	std::cout<<"delete 2048 DESTROY de "<<i<<" "<<j<<std::endl;
+	//std::cout<<"delete 2048 DESTROY de "<<i<<" "<<j<<std::endl;
 }
 
 void Case2048Destroy::Print(std::ostream& O) const {
@@ -27,9 +27,7 @@ std::string Case2048Destroy::toString() const {
 }
 
 char Case2048Destroy::testFusion(Case2048 * case2,bool firstCall) {
-
 	return 'l';
-
 }
 
 DoublePointer<Case2048>* Case2048Destroy::performFusion(Case2048 *case2,
@@ -41,10 +39,10 @@ DoublePointer<Case2048>* Case2048Destroy::performFusion(Case2048 *case2,
 	caseThis->empty=false;
 
 	if (case2->empty) {
-		cout << "destroy se deplace sur une empty" << endl;
+		//cout << "destroy se deplace sur une empty" << endl;
 		return new DoublePointer<Case2048>(caseVide, caseThis);
 	} else {
-		cout << "destroy detruit" << endl;
+		//cout << "destroy detruit" << endl;
 		return new DoublePointer<Case2048>(caseVide,caseVide2);
 	}
 }

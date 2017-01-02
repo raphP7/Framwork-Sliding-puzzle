@@ -1,11 +1,11 @@
 CC=g++ -std=c++11
-CFLAGS=-std=c++0x -I src/SFML-2.4.1/include
+CFLAGS=-std=c++0x -I SFML-2.4.1/include
 LDFLAGS=-lsfml-graphics -lsfml-system -lsfml-window
 EXEC= mainTakinCHAR mainTakinINT mainSokobanManual mainSokobanFile main2048Plugin main2048
 
 FRAMWORK=src/CaseGeneric.cpp  src/CaseGeneric.hpp    src/DoublePointer.hpp  src/FramPlateauLand.hpp    src/Display/display.hpp
 SOKOBAN=   src/Sokoban/CaseSokoban.cpp    src/Sokoban/PlateauSokoban.cpp 
-2048= src/2048/Case2048Destroy/Case2048Destroy.hpp  src/2048/Case2048Destroy/Case2048Destroy.cpp  src/2048/Case2048.hpp  src/2048/Plateau2048Plugin.hpp  src/2048/Plateau2048.cpp  src/2048/Case2048.cpp  src/2048/Plateau2048.hpp  src/2048/case2048Negative/Case2048Negative.hpp  src/2048/case2048Negative/Case2048Negative.cpp  src/2048/Plateau2048Plugin.cpp
+2048= src/2048/case2048Operator/Case2048Operator.cpp src/2048/case2048Operator/Case2048Operator.hpp src/2048/Case2048Destroy/Case2048Destroy.hpp  src/2048/Case2048Destroy/Case2048Destroy.cpp  src/2048/Case2048.hpp  src/2048/Plateau2048Plugin.hpp  src/2048/Plateau2048.cpp  src/2048/Case2048.cpp  src/2048/Plateau2048.hpp  src/2048/case2048Negative/Case2048Negative.hpp  src/2048/case2048Negative/Case2048Negative.cpp  src/2048/Plateau2048Plugin.cpp
 
 SRC= $(FRAMWORK)
 
