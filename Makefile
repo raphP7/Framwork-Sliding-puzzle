@@ -1,5 +1,5 @@
 CC=g++ -std=c++11
-CFLAGS=-std=c++0x -I/src/SFML-2.4.1/include
+CFLAGS=-std=c++0x -I src/SFML-2.4.1/include
 LDFLAGS=-lsfml-graphics -lsfml-system -lsfml-window
 EXEC= mainTakinCHAR mainTakinINT mainSokobanManual mainSokobanFile main2048Plugin main2048
 

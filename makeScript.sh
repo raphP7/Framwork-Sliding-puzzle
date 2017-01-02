@@ -6,7 +6,7 @@ g++ -std=c++0x  -O0 -g3 -c -o"object/FramPlateauLand.o" "src/FramPlateauLand.hpp
 
 g++ -std=c++0x  -O0 -g3 -c -o"object/CaseGeneric.o"  "src/CaseGeneric.cpp"
 
-g++ -std=c++0x -I/src/SFML-2.4.1/include -O0 -g3 -c -o"object/display.o"  "src/Display/display.hpp"
+g++ -std=c++0x -I src/SFML-2.4.1/include -O0 -g3 -c -o"object/display.o"  "src/Display/display.hpp"
 
 
 
